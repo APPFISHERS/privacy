@@ -276,7 +276,7 @@ $.get(baseurl)
       });
         
             //DataTable destroy to get new data (Doesn't work for exchange tab yet until i know how to re-trigger widget pack)
-   //   $('#exchangetable').dataTable().fnDestroy();   
+     //  $('#exchangetable').dataTable().fnDestroy();   
       
        //Exchanges Table  Starts
        function runExchange(){
@@ -298,9 +298,23 @@ $.get(baseurl)
         
        $(function() {
        //Only run exchange tab DataTable sort function when .wpac-review-count content changes.
-       var observer = new MutationObserver(function(e) {runExchange();});
+       var observer = new MutationObserver(function(e) { 
+           //DataTable destroy before getting new data that changes .wpac-review-count content.
+           $('#exchangetable').dataTable().fnDestroy();
+           //Get New Data for exchanges tab
+           runExchange();
+       });
+       //Keep observing changes to .wpac-review-count content.
        observer.observe($('.wpac-review-count')[0], {characterData: true, childList: true});
        });
+       
+       //Update exchanges .wpac-review-count content and trigger runExchange(); observer
+       function wpac_ajax_init() {
+       WPac.init({widget: 'ReviewCount', id: 13549, html: '<span style="color: #ff9800;" data-order="{{=it.rating}}">{{=it.stars}} {{=it.rating}}</span>'});
+        }
+        $.getScript('https://embed.widgetpack.com/widget.js', function(){ 
+           wpac_ajax_init();
+         });
        //Exchanges Table  Stops
         
  
