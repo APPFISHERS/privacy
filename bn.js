@@ -275,7 +275,7 @@ $.get(baseurl)
        
       });
         
-            //DataTable destroy to get new data (Doesn't work for exchange tab yet until i know how to re-trigger widget pack)
+            //DataTable destroy to get new data 
      //  $('#exchangetable').dataTable().fnDestroy();   
       
        //Exchanges Table  Starts
