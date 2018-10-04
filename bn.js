@@ -105,6 +105,7 @@ $.get(baseurl)
           if ((data.BTC.DailyChange) < '0'){$('tr.btc').addClass("coin--red");$('tr.btc').removeClass("coin--green");}else{$('tr.btc').addClass("coin--green");$('tr.btc').removeClass("coin--red");}            
           if ((data.BTC.cap_ngn) == '0.00'){$('.marketcapBTC').html ('...');}else{
              $('.marketcapBTC').attr('title', 'Supply: '+data.BTC.supply);
+             $('.btcsupply').html($.round(data.BTC.supply).toLocaleString('en'));
              $('.marketcapBTC').html ('&#8358;'+marketcapFormatter(data.BTC.cap_ngn, 2));$('.marketcapBTC').attr("data-order",data.BTC.cap_ngn);}
 
           /*ETH*/
@@ -126,6 +127,7 @@ $.get(baseurl)
           if ((data.ETH.DailyChange) < '0'){$('tr.eth').addClass("coin--red");$('tr.eth').removeClass("coin--green");}else{$('tr.eth').addClass("coin--green");$('tr.eth').removeClass("coin--red");}            
           if ((data.ETH.cap_ngn) == '0.00'){$('.marketcapETH').html ('...');}else{
               $('.marketcapETH').attr('title', 'Supply: '+data.ETH.supply);
+              $('.ethsupply').html($.round(data.ETH.supply).toLocaleString('en'));
               $('.marketcapETH').html ('&#8358;'+marketcapFormatter(data.ETH.cap_ngn, 2));$('.marketcapETH').attr("data-order",data.ETH.cap_ngn);}
 
               
@@ -148,6 +150,7 @@ $.get(baseurl)
           if ((data.XRP.DailyChange) < '0'){$('tr.xrp').addClass("coin--red");$('tr.xrp').removeClass("coin--green");}else{$('tr.xrp').addClass("coin--green");$('tr.xrp').removeClass("coin--red");}            
           if ((data.XRP.cap_ngn) == '0.00'){$('.marketcapXRP').html ('...');}else{
               $('.marketcapXRP').attr('title', 'Supply: '+data.XRP.supply);
+              $('.xrpsupply').html($.round(data.XRP.supply).toLocaleString('en'));
               $('.marketcapXRP').html ('&#8358;'+marketcapFormatter(data.XRP.cap_ngn, 2));$('.marketcapXRP').attr("data-order",data.XRP.cap_ngn);}
 
           /*BCH*/    
@@ -169,6 +172,7 @@ $.get(baseurl)
           if ((data.BCH.DailyChange) < '0'){$('tr.bch').addClass("coin--red");$('tr.bch').removeClass("coin--green");}else{$('tr.bch').addClass("coin--green");$('tr.bch').removeClass("coin--red");}            
           if ((data.BCH.cap_ngn) == '0.00'){$('.marketcapBCH').html ('...');}else{
               $('.marketcapBCH').attr('title', 'Supply: '+data.BCH.supply);
+              $('.bchsupply').html($.round(data.BCH.supply).toLocaleString('en'));
               $('.marketcapBCH').html ('&#8358;'+marketcapFormatter(data.BCH.cap_ngn, 2));$('.marketcapBCH').attr("data-order",data.BCH.cap_ngn);}
 
           /*LTC*/    
@@ -190,6 +194,7 @@ $.get(baseurl)
           if ((data.LTC.DailyChange) < '0'){$('tr.ltc').addClass("coin--red");$('tr.ltc').removeClass("coin--green");}else{$('tr.ltc').addClass("coin--green");$('tr.ltc').removeClass("coin--red");}            
           if ((data.LTC.cap_ngn) == '0.00'){$('.marketcapLTC').html ('...');}else{
               $('.marketcapLTC').attr('title', 'Supply: '+data.LTC.supply);
+              $('.ltcsupply').html($.round(data.LTC.supply).toLocaleString('en'));
               $('.marketcapLTC').html ('&#8358;'+marketcapFormatter(data.LTC.cap_ngn, 2));$('.marketcapLTC').attr("data-order",data.LTC.cap_ngn);}
 
           /*DASH*/    
@@ -211,6 +216,7 @@ $.get(baseurl)
           if ((data.DASH.DailyChange) < '0'){$('tr.dash').addClass("coin--red");$('tr.dash').removeClass("coin--green");}else{$('tr.dash').addClass("coin--green");$('tr.dash').removeClass("coin--red");}            
           if ((data.DASH.cap_ngn) == '0.00'){$('.marketcapDASH').html ('...');}else{
               $('.marketcapDASH').attr('title', 'Supply: '+data.DASH.supply);
+              $('.dashsupply').html($.round(data.DASH.supply).toLocaleString('en'));
               $('.marketcapDASH').html ('&#8358;'+marketcapFormatter(data.DASH.cap_ngn, 2));
               $('.marketcapDASH').attr("data-order",data.DASH.cap_ngn);}
         
@@ -227,7 +233,12 @@ $.get(baseurl)
         if ((data.NGN.REMITANO.total24hrVolume) == '0.00'){$('#exchanges').find('.remitano .coin-symbol.24hrvolume').html ('...');}else{
         $('#exchanges').find('.remitano .coin-symbol.24hrvolume').html ('&#8358;'+marketcapFormatter(data.NGN.REMITANO.total24hrVolume, 2));
              $('#exchanges').find('.remitano .coin-symbol.24hrvolume').attr("data-order",data.NGN.REMITANO.total24hrVolume);}    
-              
+             
+             
+             //Total BTCNGN 24hour volume for all exchanges
+             $('.totalBTCNGN24hrvolume').html('&#8358;'+(parseInt(data.NGN.LUNO.btcngn24hrVolume) + parseInt(data.NGN.BITSSA.btcngn24hrVolume) + parseInt(data.NGN.LOCALBITCOIN.btcngn24hrVolume) + parseInt(data.NGN.REMITANO.btcngn24hrVolume)).toLocaleString('en'));
+             //Total ETHNGN 24hour volume for all exchanges
+             $('.totalETHNGN24hrvolume').html('&#8358;'+(parseInt(data.NGN.REMITANO.ethngn24hrVolume)).toLocaleString('en'));
 
         //DataTable Sorting Code    
         //Cryptocurrencies Table
