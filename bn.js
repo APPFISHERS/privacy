@@ -350,6 +350,7 @@ $(".hometitle").css("color", "#fff");
 $(".bg-primary").css("background", "#2c2c2c");
 $(".dropdown-menu").css("background", "#2c2c2c");
 $(".header").css("background", "#2c2c2c");
+$(".navbar-nav").css("background", "#2c2c2c");
 $(".section-coin-list").css("background", "#17181b");
 $(".head-line").css("background", "#2c2c2c");
 $(".separator-primary").css("background", "#888");
@@ -363,6 +364,7 @@ $("#exchanges").addClass("nightmode");
 $("#news").css("cssText", "background:#2c2c2c;color:#fff");
 $("#news").addClass("nightmode");
 $(".footer").css("background", "#2c2c2c");
+
 Cookies.set("mode", 'night');
 }
 //Night Mode off
@@ -371,6 +373,7 @@ $(".hometitle").removeAttr("style");
 $(".bg-primary").removeAttr("style");
 $(".dropdown-menu").css("background", "#12326B");
 $(".header").removeAttr("style");
+$(".navbar-nav").removeAttr("style");
 $(".section-coin-list").removeAttr("style");
 $(".head-line").css("background","#12326B");
 $(".separator-primary").removeAttr("style");
