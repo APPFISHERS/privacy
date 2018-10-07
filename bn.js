@@ -220,19 +220,31 @@ $.get(baseurl)
               $('.marketcapDASH').html ('&#8358;'+marketcapFormatter(data.DASH.cap_ngn, 2));
               $('.marketcapDASH').attr("data-order",data.DASH.cap_ngn);}
         
-         //Update Exchanges Data
-         if ((data.NGN.LUNO.total24hrVolume) == '0.00'){$('#exchanges').find('.luno .coin-symbol.24hrvolume').html ('...');}else{
+         //Update Exchanges and Static Crypto Pages Data
+         if ((data.NGN.LUNO.total24hrVolume) == '0.00'){$('#exchanges').find('.luno .coin-symbol.24hrvolume').html ('...');$('#cryptopagetable').find('.luno-btcngn .coin-symbol.24hrvolume').html ('...');}else{
               $('#exchanges').find('.luno .coin-symbol.24hrvolume').html ('&#8358;'+marketcapFormatter(data.NGN.LUNO.total24hrVolume, 2));
-              $('#exchanges').find('.luno .coin-symbol.24hrvolume').attr("data-order",data.NGN.LUNO.total24hrVolume);}
-         if ((data.NGN.BITSSA.total24hrVolume) == '0.00'){$('#exchanges').find('.bitssa .coin-symbol.24hrvolume').html ('...');}else{
-              $('#exchanges').find('.bitssa .coin-symbol.24hrvolume').html ('&#8358;'+marketcapFormatter(data.NGN.BITSSA.total24hrVolume, 2));
-             $('#exchanges').find('.bitssa .coin-symbol.24hrvolume').attr("data-order",data.NGN.BITSSA.total24hrVolume);}
-         if ((data.NGN.LOCALBITCOIN.total24hrVolume) == '0.00'){$('#exchanges').find('.localbitcoin .coin-symbol.24hrvolume').html ('...');}else{
+              $('#exchanges').find('.luno .coin-symbol.24hrvolume').attr("data-order",data.NGN.LUNO.total24hrVolume);
+              $('#cryptopagetable').find('.luno-btcngn .coin-symbol.24hrvolume').html ('&#8358;'+marketcapFormatter(data.NGN.LUNO.btcngn24hrVolume, 2));
+              $('#cryptopagetable').find('.luno-btcngn .coin-symbol.24hrvolume').attr("data-order",data.NGN.LUNO.btcngn24hrVolume);
+         }
+         if ((data.NGN.BITSSA.total24hrVolume) == '0.00'){$('#exchanges').find('.bitssa .coin-symbol.24hrvolume').html ('...');$('#cryptopagetable').find('.bitssa-btcngn .coin-symbol.24hrvolume').html ('...');}else{
+             $('#exchanges').find('.bitssa .coin-symbol.24hrvolume').html ('&#8358;'+marketcapFormatter(data.NGN.BITSSA.total24hrVolume, 2));
+             $('#exchanges').find('.bitssa .coin-symbol.24hrvolume').attr("data-order",data.NGN.BITSSA.total24hrVolume);
+             $('#cryptopagetable').find('.bitssa-btcngn .coin-symbol.24hrvolume').html ('&#8358;'+marketcapFormatter(data.NGN.BITSSA.btcngn24hrVolume, 2));
+             $('#cryptopagetable').find('.bitssa-btcngn .coin-symbol.24hrvolume').attr("data-order",data.NGN.BITSSA.btcngn24hrVolume);
+         }
+         if ((data.NGN.LOCALBITCOIN.total24hrVolume) == '0.00'){$('#exchanges').find('.localbitcoin .coin-symbol.24hrvolume').html ('...');$('#cryptopagetable').find('.localbitcoin-btcngn .coin-symbol.24hrvolume').html ('...');}else{
               $('#exchanges').find('.localbitcoin .coin-symbol.24hrvolume').html ('&#8358;'+marketcapFormatter(data.NGN.LOCALBITCOIN.total24hrVolume, 2));
-             $('#exchanges').find('.localbitcoin .coin-symbol.24hrvolume').attr("data-order",data.NGN.LOCALBITCOIN.total24hrVolume);}
-        if ((data.NGN.REMITANO.total24hrVolume) == '0.00'){$('#exchanges').find('.remitano .coin-symbol.24hrvolume').html ('...');}else{
-        $('#exchanges').find('.remitano .coin-symbol.24hrvolume').html ('&#8358;'+marketcapFormatter(data.NGN.REMITANO.total24hrVolume, 2));
-             $('#exchanges').find('.remitano .coin-symbol.24hrvolume').attr("data-order",data.NGN.REMITANO.total24hrVolume);}    
+             $('#exchanges').find('.localbitcoin .coin-symbol.24hrvolume').attr("data-order",data.NGN.LOCALBITCOIN.total24hrVolume);
+         $('#cryptopagetable').find('.localbitcoin-btcngn .coin-symbol.24hrvolume').html ('&#8358;'+marketcapFormatter(data.NGN.LOCALBITCOIN.btcngn24hrVolume, 2));
+             $('#cryptopagetable').find('.localbitcoin-btcngn .coin-symbol.24hrvolume').attr("data-order",data.NGN.LOCALBITCOIN.btcngn24hrVolume);
+          }
+        if ((data.NGN.REMITANO.total24hrVolume) == '0.00'){$('#exchanges').find('.remitano .coin-symbol.24hrvolume').html ('...');$('#cryptopagetable').find('.remitano-btcngn .coin-symbol.24hrvolume').html ('...');}else{
+          $('#exchanges').find('.remitano .coin-symbol.24hrvolume').html ('&#8358;'+marketcapFormatter(data.NGN.REMITANO.total24hrVolume, 2));
+             $('#exchanges').find('.remitano .coin-symbol.24hrvolume').attr("data-order",data.NGN.REMITANO.total24hrVolume);    
+             $('#cryptopagetable').find('.remitano-btcngn .coin-symbol.24hrvolume').html ('&#8358;'+marketcapFormatter(data.NGN.REMITANO.btcngn24hrVolume, 2));
+             $('#cryptopagetable').find('.remitano-btcngn .coin-symbol.24hrvolume').attr("data-order",data.NGN.REMITANO.btcngn24hrVolume);
+          }  
              
              
              //Total BTCNGN 24hour volume for all exchanges
@@ -259,7 +271,8 @@ $.get(baseurl)
             {targets: 3, type: 'formatted-num'}]//Makes column with Naira sign sort correctly.
         }); 
     */
-    
+    //Market Table  Starts
+    if( $('#marketTable').length ) {// Check if the div exists before running the code
       //DataTable destroy each time to get new data
       $('#marketTable').dataTable().fnDestroy();
       
@@ -285,11 +298,15 @@ $.get(baseurl)
         {targets: [3,6,7,8], type: 'formatted-num'}]
        
       });
-        
+     };   
+    //Market Table  Stops
+     
+     
             //DataTable destroy to get new data 
      //  $('#exchangetable').dataTable().fnDestroy();   
       
        //Exchanges Table  Starts
+    if( $('#exchangetable').length ) {// Check if the div exists before running the code
        function runExchange(){
        $('#exchangetable').DataTable({
          paging: true
@@ -300,7 +317,7 @@ $.get(baseurl)
     	//, scrollY: 371 // comment out to remove fixed header
     	, scrollCollapse: false
      	, searching: true
-    	, order: [] // data is pre-sorted
+    	, order: [[ 0, 'asc' ]] // data is pre-sorted to descending 24H volume. 'asc' for ascending, 'desc' for descending.
     	
         ,"ordering": true,
         columnDefs: [{orderable: false, targets: "no-sort"}]
@@ -326,9 +343,34 @@ $.get(baseurl)
         $.getScript('https://embed.widgetpack.com/widget.js', function(){ 
            wpac_ajax_init();
          });
+        };
        //Exchanges Table  Stops
         
- 
+      //Crypto Static Page Starts
+      if( $('#cryptopagetable').length ) {// Check if the div exists before running the code
+      $('#cryptopagetable').dataTable().fnDestroy();   
+      $('#cryptopagetable').on('init.dt', function (){
+     // This is the code for numbering DataTable dynamically after default settings
+      var t = $('#cryptopagetable').DataTable();
+        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) { cell.innerHTML = i+1;t.rows().invalidate(); });
+      }).DataTable( {
+         paging: true
+        //	, pageLength: 6
+     	, pagingType: 'simple_numbers'
+    	, lengthChange: true
+    	, autoWidth: false // must be true for responsive designs when scrolling is enabled
+    	//, scrollY: 371 // comment out to remove fixed header
+    	, scrollCollapse: false
+     	, searching: true
+    	, order: [[ 4, 'desc' ]] // data is pre-sorted to descending 24H volume. 'asc' for ascending, 'desc' for descending.
+    	
+        ,"ordering": true,
+        columnDefs: [
+            {orderable: false, targets: "no-sort"}]
+        }); 
+      };
+        //Crypto Static Page Stops
+        
     }) 
   
 }
