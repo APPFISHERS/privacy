@@ -71,6 +71,37 @@ $.get(baseurl)
           $('#dashngnField').val ($.round(data.NGN.LUNO.dashngn).toLocaleString('en'));} 
           if ((data.NGN.LUNO.xrpngn) == '0.00'){$('#xrpngnField').val ('...');}else{
           $('#xrpngnField').val ($.round(data.NGN.LUNO.xrpngn).toLocaleString('en'));} 
+          if ((data.NGN.LUNO.eosngn) == '0.00'){$('#eosngnField').val ('...');}else{
+          $('#eosngnField').val ($.round(data.NGN.LUNO.eosngn).toLocaleString('en'));}
+          if ((data.NGN.LUNO.xlmngn) == '0.00'){$('#xlmngnField').val ('...');}else{
+          $('#xlmngnField').val ($.round(data.NGN.LUNO.xlmngn).toLocaleString('en'));}          
+          if ((data.NGN.LUNO.usdtngn) == '0.00'){$('#usdtngnField').val ('...');}else{
+          $('#usdtngnField').val ($.round(data.NGN.LUNO.usdtngn).toLocaleString('en'));}           
+          if ((data.NGN.LUNO.adangn) == '0.00'){$('#adangnField').val ('...');}else{
+          $('#adangnField').val ($.round(data.NGN.LUNO.adangn).toLocaleString('en'));}           
+          if ((data.NGN.LUNO.xmrngn) == '0.00'){$('#xmrngnField').val ('...');}else{
+          $('#xmrngnField').val ($.round(data.NGN.LUNO.xmrngn).toLocaleString('en'));}           
+          if ((data.NGN.LUNO.trxngn) == '0.00'){$('#trxngnField').val ('...');}else{
+          $('#trxngnField').val ($.round(data.NGN.LUNO.trxngn).toLocaleString('en'));}           
+          if ((data.NGN.LUNO.iotangn) == '0.00'){$('#iotangnField').val ('...');}else{
+          $('#iotangnField').val ($.round(data.NGN.LUNO.iotangn).toLocaleString('en'));}           
+          if ((data.NGN.LUNO.bnbngn) == '0.00'){$('#bnbngnField').val ('...');}else{
+          $('#bnbngnField').val ($.round(data.NGN.LUNO.bnbngn).toLocaleString('en'));}           
+          if ((data.NGN.LUNO.neongn) == '0.00'){$('#neongnField').val ('...');}else{
+          $('#neongnField').val ($.round(data.NGN.LUNO.neongn).toLocaleString('en'));}           
+          if ((data.NGN.LUNO.etcngn) == '0.00'){$('#etcngnField').val ('...');}else{
+          $('#etcngnField').val ($.round(data.NGN.LUNO.etcngn).toLocaleString('en'));}           
+          if ((data.NGN.LUNO.xtzngn) == '0.00'){$('#xtzngnField').val ('...');}else{
+          $('#xtzngnField').val ($.round(data.NGN.LUNO.xtzngn).toLocaleString('en'));}           
+          if ((data.NGN.LUNO.xemngn) == '0.00'){$('#xemngnField').val ('...');}else{
+          $('#xemngnField').val ($.round(data.NGN.LUNO.xemngn).toLocaleString('en'));}           
+          if ((data.NGN.LUNO.vetngn) == '0.00'){$('#vetngnField').val ('...');}else{
+          $('#vetngnField').val ($.round(data.NGN.LUNO.vetngn).toLocaleString('en'));}           
+          if ((data.NGN.LUNO.dogengn) == '0.00'){$('#dogengnField').val ('...');}else{
+          $('#dogengnField').val ($.round(data.NGN.LUNO.dogengn).toLocaleString('en'));}           
+          if ((data.NGN.LUNO.zecngn) == '0.00'){$('#zecngnField').val ('...');}else{
+          $('#zecngnField').val ($.round(data.NGN.LUNO.zecngn).toLocaleString('en'));}           
+          
           
           //Navbar exchange rates 
           if ((data.NGN.LUNO.usdngn) == '0.00'){$usdngn.html ('...');}else{
@@ -223,9 +254,9 @@ $.get(baseurl)
           /*EOS*/    
           var fiatpriceEOSNGN = ('₦'+$.round(data.NGN.LUNO.eosngn).toLocaleString('en'));
           var fiatpricelbcEOSNGN = ('₦'+$.round(data.NGN.LOCALBITCOIN.eosngn).toLocaleString('en'));
-          var fiatpriceEOSUSD = ('$'+$.round(data.EOS.usd).toLocaleString('en'));
-          var fiatpriceEOSGBP = ('£'+$.round(data.EOS.gbp).toLocaleString('en'));
-          var fiatpriceEOSEUR = ('€'+$.round(data.EOS.eur).toLocaleString('en'));
+          var fiatpriceEOSUSD = ('$'+parseFloat(data.EOS.usd).toFixed(2));
+          var fiatpriceEOSGBP = ('£'+parseFloat(data.EOS.gbp).toFixed(2));
+          var fiatpriceEOSEUR = ('€'+parseFloat(data.EOS.eur).toFixed(2));
           if ((data.NGN.LUNO.eosngn) == '0.00'){$('.fiatpriceEOSNGN').html ('...');}else{
               $('.fiatpriceEOSNGN').html (fiatpriceEOSNGN);
               $('.fiatpriceEOSNGN').attr('title', 'Luno:'+fiatpriceEOSNGN+'\nLBC:'+fiatpricelbcEOSNGN);}
@@ -246,9 +277,9 @@ $.get(baseurl)
           /*XLM*/    
           var fiatpriceXLMNGN = ('₦'+$.round(data.NGN.LUNO.xlmngn).toLocaleString('en'));
           var fiatpricelbcXLMNGN = ('₦'+$.round(data.NGN.LOCALBITCOIN.xlmngn).toLocaleString('en'));
-          var fiatpriceXLMUSD = ('$'+$.round(data.XLM.usd).toLocaleString('en'));
-          var fiatpriceXLMGBP = ('£'+$.round(data.XLM.gbp).toLocaleString('en'));
-          var fiatpriceXLMEUR = ('€'+$.round(data.XLM.eur).toLocaleString('en'));
+          var fiatpriceXLMUSD = ('$'+parseFloat(data.XLM.usd).toFixed(2));
+          var fiatpriceXLMGBP = ('£'+parseFloat(data.XLM.gbp).toFixed(2));
+          var fiatpriceXLMEUR = ('€'+parseFloat(data.XLM.eur).toFixed(2));
           if ((data.NGN.LUNO.xlmngn) == '0.00'){$('.fiatpriceXLMNGN').html ('...');}else{
               $('.fiatpriceXLMNGN').html (fiatpriceXLMNGN);
               $('.fiatpriceXLMNGN').attr('title', 'Luno:'+fiatpriceXLMNGN+'\nLBC:'+fiatpricelbcXLMNGN);}
@@ -269,9 +300,9 @@ $.get(baseurl)
               /*USDT*/    
           var fiatpriceUSDTNGN = ('₦'+$.round(data.NGN.LUNO.usdtngn).toLocaleString('en'));
           var fiatpricelbcUSDTNGN = ('₦'+$.round(data.NGN.LOCALBITCOIN.usdtngn).toLocaleString('en'));
-          var fiatpriceUSDTUSD = ('$'+$.round(data.USDT.usd).toLocaleString('en'));
-          var fiatpriceUSDTGBP = ('£'+$.round(data.USDT.gbp).toLocaleString('en'));
-          var fiatpriceUSDTEUR = ('€'+$.round(data.USDT.eur).toLocaleString('en'));
+          var fiatpriceUSDTUSD = ('$'+parseFloat(data.USDT.usd).toFixed(2));
+          var fiatpriceUSDTGBP = ('£'+parseFloat(data.USDT.gbp).toFixed(2));
+          var fiatpriceUSDTEUR = ('€'+parseFloat(data.USDT.eur).toFixed(2));
           if ((data.NGN.LUNO.usdtngn) == '0.00'){$('.fiatpriceUSDTNGN').html ('...');}else{
               $('.fiatpriceUSDTNGN').html (fiatpriceUSDTNGN);
               $('.fiatpriceUSDTNGN').attr('title', 'Luno:'+fiatpriceUSDTNGN+'\nLBC:'+fiatpricelbcUSDTNGN);}
@@ -292,9 +323,9 @@ $.get(baseurl)
           /*ADA*/    
           var fiatpriceADANGN = ('₦'+$.round(data.NGN.LUNO.adangn).toLocaleString('en'));
           var fiatpricelbcADANGN = ('₦'+$.round(data.NGN.LOCALBITCOIN.adangn).toLocaleString('en'));
-          var fiatpriceADAUSD = ('$'+$.round(data.ADA.usd).toLocaleString('en'));
-          var fiatpriceADAGBP = ('£'+$.round(data.ADA.gbp).toLocaleString('en'));
-          var fiatpriceADAEUR = ('€'+$.round(data.ADA.eur).toLocaleString('en'));
+          var fiatpriceADAUSD = ('$'+parseFloat(data.ADA.usd).toFixed(2));
+          var fiatpriceADAGBP = ('£'+parseFloat(data.ADA.gbp).toFixed(2));
+          var fiatpriceADAEUR = ('€'+parseFloat(data.ADA.eur).toFixed(2));
           if ((data.NGN.LUNO.adangn) == '0.00'){$('.fiatpriceADANGN').html ('...');}else{
               $('.fiatpriceADANGN').html (fiatpriceADANGN);
               $('.fiatpriceADANGN').attr('title', 'Luno:'+fiatpriceADANGN+'\nLBC:'+fiatpricelbcADANGN);}
@@ -338,9 +369,9 @@ $.get(baseurl)
           /*TRX*/    
           var fiatpriceTRXNGN = ('₦'+$.round(data.NGN.LUNO.trxngn).toLocaleString('en'));
           var fiatpricelbcTRXNGN = ('₦'+$.round(data.NGN.LOCALBITCOIN.trxngn).toLocaleString('en'));
-          var fiatpriceTRXUSD = ('$'+$.round(data.TRX.usd).toLocaleString('en'));
-          var fiatpriceTRXGBP = ('£'+$.round(data.TRX.gbp).toLocaleString('en'));
-          var fiatpriceTRXEUR = ('€'+$.round(data.TRX.eur).toLocaleString('en'));
+          var fiatpriceTRXUSD = ('$'+parseFloat(data.TRX.usd).toFixed(3));
+          var fiatpriceTRXGBP = ('£'+parseFloat(data.TRX.gbp).toFixed(3));
+          var fiatpriceTRXEUR = ('€'+parseFloat(data.TRX.eur).toFixed(3));
           if ((data.NGN.LUNO.trxngn) == '0.00'){$('.fiatpriceTRXNGN').html ('...');}else{
               $('.fiatpriceTRXNGN').html (fiatpriceTRXNGN);
               $('.fiatpriceTRXNGN').attr('title', 'Luno:'+fiatpriceTRXNGN+'\nLBC:'+fiatpricelbcTRXNGN);}
@@ -361,9 +392,9 @@ $.get(baseurl)
           /*IOTA*/    
           var fiatpriceIOTANGN = ('₦'+$.round(data.NGN.LUNO.iotangn).toLocaleString('en'));
           var fiatpricelbcIOTANGN = ('₦'+$.round(data.NGN.LOCALBITCOIN.iotangn).toLocaleString('en'));
-          var fiatpriceIOTAUSD = ('$'+$.round(data.IOTA.usd).toLocaleString('en'));
-          var fiatpriceIOTAGBP = ('£'+$.round(data.IOTA.gbp).toLocaleString('en'));
-          var fiatpriceIOTAEUR = ('€'+$.round(data.IOTA.eur).toLocaleString('en'));
+          var fiatpriceIOTAUSD = ('$'+parseFloat(data.IOTA.usd).toFixed(2));
+          var fiatpriceIOTAGBP = ('£'+parseFloat(data.IOTA.gbp).toFixed(2));
+          var fiatpriceIOTAEUR = ('€'+parseFloat(data.IOTA.eur).toFixed(2));
           if ((data.NGN.LUNO.iotangn) == '0.00'){$('.fiatpriceIOTANGN').html ('...');}else{
               $('.fiatpriceIOTANGN').html (fiatpriceIOTANGN);
               $('.fiatpriceIOTANGN').attr('title', 'Luno:'+fiatpriceIOTANGN+'\nLBC:'+fiatpricelbcIOTANGN);}
@@ -384,9 +415,9 @@ $.get(baseurl)
           /*BNB*/    
           var fiatpriceBNBNGN = ('₦'+$.round(data.NGN.LUNO.bnbngn).toLocaleString('en'));
           var fiatpricelbcBNBNGN = ('₦'+$.round(data.NGN.LOCALBITCOIN.bnbngn).toLocaleString('en'));
-          var fiatpriceBNBUSD = ('$'+$.round(data.BNB.usd).toLocaleString('en'));
-          var fiatpriceBNBGBP = ('£'+$.round(data.BNB.gbp).toLocaleString('en'));
-          var fiatpriceBNBEUR = ('€'+$.round(data.BNB.eur).toLocaleString('en'));
+          var fiatpriceBNBUSD = ('$'+parseFloat(data.BNB.usd).toFixed(2));
+          var fiatpriceBNBGBP = ('£'+parseFloat(data.BNB.gbp).toFixed(2));
+          var fiatpriceBNBEUR = ('€'+parseFloat(data.BNB.eur).toFixed(2));
           if ((data.NGN.LUNO.bnbngn) == '0.00'){$('.fiatpriceBNBNGN').html ('...');}else{
               $('.fiatpriceBNBNGN').html (fiatpriceBNBNGN);
               $('.fiatpriceBNBNGN').attr('title', 'Luno:'+fiatpriceBNBNGN+'\nLBC:'+fiatpricelbcBNBNGN);}
@@ -430,9 +461,9 @@ $.get(baseurl)
           /*ETC*/    
           var fiatpriceETCNGN = ('₦'+$.round(data.NGN.LUNO.etcngn).toLocaleString('en'));
           var fiatpricelbcETCNGN = ('₦'+$.round(data.NGN.LOCALBITCOIN.etcngn).toLocaleString('en'));
-          var fiatpriceETCUSD = ('$'+$.round(data.ETC.usd).toLocaleString('en'));
-          var fiatpriceETCGBP = ('£'+$.round(data.ETC.gbp).toLocaleString('en'));
-          var fiatpriceETCEUR = ('€'+$.round(data.ETC.eur).toLocaleString('en'));
+          var fiatpriceETCUSD = ('$'+parseFloat(data.ETC.usd).toFixed(2));
+          var fiatpriceETCGBP = ('£'+parseFloat(data.ETC.gbp).toFixed(2));
+          var fiatpriceETCEUR = ('€'+parseFloat(data.ETC.eur).toFixed(2));
           if ((data.NGN.LUNO.etcngn) == '0.00'){$('.fiatpriceETCNGN').html ('...');}else{
               $('.fiatpriceETCNGN').html (fiatpriceETCNGN);
               $('.fiatpriceETCNGN').attr('title', 'Luno:'+fiatpriceETCNGN+'\nLBC:'+fiatpricelbcETCNGN);}
@@ -453,9 +484,9 @@ $.get(baseurl)
           /*XTZ*/    
           var fiatpriceXTZNGN = ('₦'+$.round(data.NGN.LUNO.xtzngn).toLocaleString('en'));
           var fiatpricelbcXTZNGN = ('₦'+$.round(data.NGN.LOCALBITCOIN.xtzngn).toLocaleString('en'));
-          var fiatpriceXTZUSD = ('$'+$.round(data.XTZ.usd).toLocaleString('en'));
-          var fiatpriceXTZGBP = ('£'+$.round(data.XTZ.gbp).toLocaleString('en'));
-          var fiatpriceXTZEUR = ('€'+$.round(data.XTZ.eur).toLocaleString('en'));
+          var fiatpriceXTZUSD = ('$'+parseFloat(data.XTZ.usd).toFixed(2));
+          var fiatpriceXTZGBP = ('£'+parseFloat(data.XTZ.gbp).toFixed(2));
+          var fiatpriceXTZEUR = ('€'+parseFloat(data.XTZ.eur).toFixed(2));
           if ((data.NGN.LUNO.xtzngn) == '0.00'){$('.fiatpriceXTZNGN').html ('...');}else{
               $('.fiatpriceXTZNGN').html (fiatpriceXTZNGN);
               $('.fiatpriceXTZNGN').attr('title', 'Luno:'+fiatpriceXTZNGN+'\nLBC:'+fiatpricelbcXTZNGN);}
@@ -467,18 +498,18 @@ $.get(baseurl)
               $('.fiatpriceXTZEUR').html (fiatpriceXTZEUR);}
           if ((data.XTZ.DailyChange) == '0.00'){$('.dailychangeXTZ').html ('0.00');}else{$('.dailychangeXTZ').html(data.XTZ.DailyChange+'%');}
           if ((data.XTZ.DailyChange) < '0'){$('tr.xtz').addClass("coin--red");$('tr.xtz').removeClass("coin--green");}else{$('tr.xtz').addClass("coin--green");$('tr.xtz').removeClass("coin--red");}            
-          if ((data.XTZ.cap_ngn) == '0.00'){$('.markxtzapXTZ').html ('...');}else{
-              $('.markxtzapXTZ').attr('title', 'Supply: '+data.XTZ.supply);
+          if ((data.XTZ.cap_ngn) == '0.00'){$('.marketcapXTZ').html ('...');}else{
+              $('.marketcapXTZ').attr('title', 'Supply: '+data.XTZ.supply);
               $('.xtzsupply').html($.round(data.XTZ.supply).toLocaleString('en'));
-              $('.markxtzapXTZ').html ('&#8358;'+markxtzapFormatter(data.XTZ.cap_ngn, 2));
-              $('.markxtzapXTZ').attr("data-order",data.XTZ.cap_ngn);}
+              $('.marketcapXTZ').html ('&#8358;'+marketcapFormatter(data.XTZ.cap_ngn, 2));
+              $('.marketcapXTZ').attr("data-order",data.XTZ.cap_ngn);}
         
           /*XEM*/    
           var fiatpriceXEMNGN = ('₦'+$.round(data.NGN.LUNO.xemngn).toLocaleString('en'));
           var fiatpricelbcXEMNGN = ('₦'+$.round(data.NGN.LOCALBITCOIN.xemngn).toLocaleString('en'));
-          var fiatpriceXEMUSD = ('$'+$.round(data.XEM.usd).toLocaleString('en'));
-          var fiatpriceXEMGBP = ('£'+$.round(data.XEM.gbp).toLocaleString('en'));
-          var fiatpriceXEMEUR = ('€'+$.round(data.XEM.eur).toLocaleString('en'));
+          var fiatpriceXEMUSD = ('$'+parseFloat(data.XEM.usd).toFixed(2));
+          var fiatpriceXEMGBP = ('£'+parseFloat(data.XEM.gbp).toFixed(2));
+          var fiatpriceXEMEUR = ('€'+parseFloat(data.XEM.eur).toFixed(2));
           if ((data.NGN.LUNO.xemngn) == '0.00'){$('.fiatpriceXEMNGN').html ('...');}else{
               $('.fiatpriceXEMNGN').html (fiatpriceXEMNGN);
               $('.fiatpriceXEMNGN').attr('title', 'Luno:'+fiatpriceXEMNGN+'\nLBC:'+fiatpricelbcXEMNGN);}
@@ -490,18 +521,18 @@ $.get(baseurl)
               $('.fiatpriceXEMEUR').html (fiatpriceXEMEUR);}
           if ((data.XEM.DailyChange) == '0.00'){$('.dailychangeXEM').html ('0.00');}else{$('.dailychangeXEM').html(data.XEM.DailyChange+'%');}
           if ((data.XEM.DailyChange) < '0'){$('tr.xem').addClass("coin--red");$('tr.xem').removeClass("coin--green");}else{$('tr.xem').addClass("coin--green");$('tr.xem').removeClass("coin--red");}            
-          if ((data.XEM.cap_ngn) == '0.00'){$('.markxemapXEM').html ('...');}else{
-              $('.markxemapXEM').attr('title', 'Supply: '+data.XEM.supply);
+          if ((data.XEM.cap_ngn) == '0.00'){$('.marketcapXEM').html ('...');}else{
+              $('.marketcapXEM').attr('title', 'Supply: '+data.XEM.supply);
               $('.xemsupply').html($.round(data.XEM.supply).toLocaleString('en'));
-              $('.markxemapXEM').html ('&#8358;'+markxemapFormatter(data.XEM.cap_ngn, 2));
-              $('.markxemapXEM').attr("data-order",data.XEM.cap_ngn);}
+              $('.marketcapXEM').html ('&#8358;'+marketcapFormatter(data.XEM.cap_ngn, 2));
+              $('.marketcapXEM').attr("data-order",data.XEM.cap_ngn);}
         
           /*VET*/    
           var fiatpriceVETNGN = ('₦'+$.round(data.NGN.LUNO.vetngn).toLocaleString('en'));
           var fiatpricelbcVETNGN = ('₦'+$.round(data.NGN.LOCALBITCOIN.vetngn).toLocaleString('en'));
-          var fiatpriceVETUSD = ('$'+$.round(data.VET.usd).toLocaleString('en'));
-          var fiatpriceVETGBP = ('£'+$.round(data.VET.gbp).toLocaleString('en'));
-          var fiatpriceVETEUR = ('€'+$.round(data.VET.eur).toLocaleString('en'));
+          var fiatpriceVETUSD = ('$'+parseFloat(data.VET.usd).toFixed(3));
+          var fiatpriceVETGBP = ('£'+parseFloat(data.VET.gbp).toFixed(3));
+          var fiatpriceVETEUR = ('€'+parseFloat(data.VET.eur).toFixed(3));
           if ((data.NGN.LUNO.vetngn) == '0.00'){$('.fiatpriceVETNGN').html ('...');}else{
               $('.fiatpriceVETNGN').html (fiatpriceVETNGN);
               $('.fiatpriceVETNGN').attr('title', 'Luno:'+fiatpriceVETNGN+'\nLBC:'+fiatpricelbcVETNGN);}
@@ -513,18 +544,18 @@ $.get(baseurl)
               $('.fiatpriceVETEUR').html (fiatpriceVETEUR);}
           if ((data.VET.DailyChange) == '0.00'){$('.dailychangeVET').html ('0.00');}else{$('.dailychangeVET').html(data.VET.DailyChange+'%');}
           if ((data.VET.DailyChange) < '0'){$('tr.vet').addClass("coin--red");$('tr.vet').removeClass("coin--green");}else{$('tr.vet').addClass("coin--green");$('tr.vet').removeClass("coin--red");}            
-          if ((data.VET.cap_ngn) == '0.00'){$('.markvetapVET').html ('...');}else{
-              $('.markvetapVET').attr('title', 'Supply: '+data.VET.supply);
+          if ((data.VET.cap_ngn) == '0.00'){$('.marketcapVET').html ('...');}else{
+              $('.marketcapVET').attr('title', 'Supply: '+data.VET.supply);
               $('.vetsupply').html($.round(data.VET.supply).toLocaleString('en'));
-              $('.markvetapVET').html ('&#8358;'+markvetapFormatter(data.VET.cap_ngn, 2));
-              $('.markvetapVET').attr("data-order",data.VET.cap_ngn);}
+              $('.marketcapVET').html ('&#8358;'+marketcapFormatter(data.VET.cap_ngn, 2));
+              $('.marketcapVET').attr("data-order",data.VET.cap_ngn);}
         
           /*DOGE*/    
           var fiatpriceDOGENGN = ('₦'+$.round(data.NGN.LUNO.dogengn).toLocaleString('en'));
           var fiatpricelbcDOGENGN = ('₦'+$.round(data.NGN.LOCALBITCOIN.dogengn).toLocaleString('en'));
-          var fiatpriceDOGEUSD = ('$'+$.round(data.DOGE.usd).toLocaleString('en'));
-          var fiatpriceDOGEGBP = ('£'+$.round(data.DOGE.gbp).toLocaleString('en'));
-          var fiatpriceDOGEEUR = ('€'+$.round(data.DOGE.eur).toLocaleString('en'));
+          var fiatpriceDOGEUSD = ('$'+parseFloat(data.DOGE.usd).toFixed(3));
+          var fiatpriceDOGEGBP = ('£'+parseFloat(data.DOGE.gbp).toFixed(3));
+          var fiatpriceDOGEEUR = ('€'+parseFloat(data.DOGE.eur).toFixed(3));
           if ((data.NGN.LUNO.dogengn) == '0.00'){$('.fiatpriceDOGENGN').html ('...');}else{
               $('.fiatpriceDOGENGN').html (fiatpriceDOGENGN);
               $('.fiatpriceDOGENGN').attr('title', 'Luno:'+fiatpriceDOGENGN+'\nLBC:'+fiatpricelbcDOGENGN);}
@@ -536,11 +567,11 @@ $.get(baseurl)
               $('.fiatpriceDOGEEUR').html (fiatpriceDOGEEUR);}
           if ((data.DOGE.DailyChange) == '0.00'){$('.dailychangeDOGE').html ('0.00');}else{$('.dailychangeDOGE').html(data.DOGE.DailyChange+'%');}
           if ((data.DOGE.DailyChange) < '0'){$('tr.doge').addClass("coin--red");$('tr.doge').removeClass("coin--green");}else{$('tr.doge').addClass("coin--green");$('tr.doge').removeClass("coin--red");}            
-          if ((data.DOGE.cap_ngn) == '0.00'){$('.markdogeapDOGE').html ('...');}else{
-              $('.markdogeapDOGE').attr('title', 'Supply: '+data.DOGE.supply);
+          if ((data.DOGE.cap_ngn) == '0.00'){$('.marketcapDOGE').html ('...');}else{
+              $('.marketcapDOGE').attr('title', 'Supply: '+data.DOGE.supply);
               $('.dogesupply').html($.round(data.DOGE.supply).toLocaleString('en'));
-              $('.markdogeapDOGE').html ('&#8358;'+markdogeapFormatter(data.DOGE.cap_ngn, 2));
-              $('.markdogeapDOGE').attr("data-order",data.DOGE.cap_ngn);}
+              $('.marketcapDOGE').html ('&#8358;'+marketcapFormatter(data.DOGE.cap_ngn, 2));
+              $('.marketcapDOGE').attr("data-order",data.DOGE.cap_ngn);}
         
           /*ZEC*/    
           var fiatpriceZECNGN = ('₦'+$.round(data.NGN.LUNO.zecngn).toLocaleString('en'));
@@ -559,11 +590,11 @@ $.get(baseurl)
               $('.fiatpriceZECEUR').html (fiatpriceZECEUR);}
           if ((data.ZEC.DailyChange) == '0.00'){$('.dailychangeZEC').html ('0.00');}else{$('.dailychangeZEC').html(data.ZEC.DailyChange+'%');}
           if ((data.ZEC.DailyChange) < '0'){$('tr.zec').addClass("coin--red");$('tr.zec').removeClass("coin--green");}else{$('tr.zec').addClass("coin--green");$('tr.zec').removeClass("coin--red");}            
-          if ((data.ZEC.cap_ngn) == '0.00'){$('.markzecapZEC').html ('...');}else{
-              $('.markzecapZEC').attr('title', 'Supply: '+data.ZEC.supply);
+          if ((data.ZEC.cap_ngn) == '0.00'){$('.marketcapZEC').html ('...');}else{
+              $('.marketcapZEC').attr('title', 'Supply: '+data.ZEC.supply);
               $('.zecsupply').html($.round(data.ZEC.supply).toLocaleString('en'));
-              $('.markzecapZEC').html ('&#8358;'+markzecapFormatter(data.ZEC.cap_ngn, 2));
-              $('.markzecapZEC').attr("data-order",data.ZEC.cap_ngn);}
+              $('.marketcapZEC').html ('&#8358;'+marketcapFormatter(data.ZEC.cap_ngn, 2));
+              $('.marketcapZEC').attr("data-order",data.ZEC.cap_ngn);}
                 
                 
                                 
@@ -633,7 +664,7 @@ $.get(baseurl)
       }).DataTable( {
         //DataTable Default Settings starts
         paging: true,
-       // pageLength: 5,
+        pageLength: 25,
         pagingType: 'simple_numbers',
         lengthChange: true,
         autoWidth: false, // must be true for responsive designs when scrolling is enabled
