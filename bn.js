@@ -51,6 +51,7 @@ function lunoRates() {
 $usdngn = $('.usdngnnav');
 $gbpngn = $('.gbpngnnav');
 $eurngn = $('.eurngnnav');
+$cnyngn = $('.cnyngnnav');
 $.round = Math.round;
 var baseurl = 'https'+'://'+'api.'+'btc'+'na'+'ir'+'a'+'.com'+'.n'+'g'+'/'+'v1'+'/'+'rates/';
 $.get(baseurl)
@@ -110,10 +111,13 @@ $.get(baseurl)
           $gbpngn.html ('&#8358;'+$.round(data.NGN.LUNO.gbpngn)+'/&#163;');}//&#163; for gbp html entity
           if ((data.NGN.LUNO.eurngn) == '0.00'){$eurngn.html ('...');}else{
           $eurngn.html ('&#8358;'+$.round(data.NGN.LUNO.eurngn)+'/&#8364;');}//&#8364; for eur html entity
+          if ((data.NGN.LUNO.cnyngn) == '0.00'){$cnyngn.html ('...');}else{
+          $cnyngn.html ('&#8358;'+$.round(data.NGN.LUNO.cnyngn)+'/&#165;');}//&#165; for cny html entity          
           //update Navbar ticker directions
           if ($.round(data.NGN.LUNO.usdngn) >= $.round(data.NGN.LUNO.ystClose_usdngn)){$('.usdngnnavticker').addClass("coin-change-green");$('.usdngnnavticker').removeClass("coin-change-red");}else{$('.usdngnnavticker').removeClass("coin-change-green"); $('.usdngnnavticker').addClass("coin-change-red");}
           if ($.round(data.NGN.LUNO.gbpngn) >= $.round(data.NGN.LUNO.ystClose_gbpngn)){$('.gbpngnnavticker').addClass("coin-change-green");$('.gbpngnnavticker').removeClass("coin-change-red");}else{$('.gbpngnnavticker').removeClass("coin-change-green"); $('.gbpngnnavticker').addClass("coin-change-red");}
           if ($.round(data.NGN.LUNO.eurngn) >= $.round(data.NGN.LUNO.ystClose_eurngn)){$('.eurngnnavticker').addClass("coin-change-green");$('.eurngnnavticker').removeClass("coin-change-red");}else{$('.eurngnnavticker').removeClass("coin-change-green"); $('.eurngnnavticker').addClass("coin-change-red");}
+          if ($.round(data.NGN.LUNO.cnyngn) >= $.round(data.NGN.LUNO.ystClose_cnyngn)){$('.cnyngnnavticker').addClass("coin-change-green");$('.cnyngnnavticker').removeClass("coin-change-red");}else{$('.cnyngnnavticker').removeClass("coin-change-green"); $('.cnyngnnavticker').addClass("coin-change-red");}          
           
           //Update Market Data
           /*BTC*/
