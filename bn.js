@@ -798,10 +798,79 @@ lunoRates();
 
 //BTCNaira website Data
 var btcnairabuylink = document.location.origin+'/p/buy.html';
-var btcnairaselllink = document.location.origin+'/p/sell.html'
+var btcnairaselllink = document.location.origin+'/p/sell.html';
+var btcnairaminerlink = document.location.origin+'/p/miner.html';
 $('.btcnairabuylink').attr('href',btcnairabuylink);  
 $('.btcnairaselllink').attr('href',btcnairaselllink);  
+$('.btcnairaminerlink').attr('href',btcnairaminerlink);  
 
+//Cryptocurrency Page Links
+var btcpagelink = document.location.origin+'/2018/10/bitcoin.html';
+$('.btcpagelink').attr('href',btcpagelink); 
+
+//Exchanges Logo Links
+var bitkoinafrikalogolink = 'https://1.bp.blogspot.com/-fdhqxmsGGXU/W5a-IzVJZbI/AAAAAAAABMs/5V4TPhxJmAMrBYlAeXQg-zBH2lNljnu9QCLcBGAs/s1600/luno.png';
+var bitssalogolink = 'https://www.bitssa.com';
+var btcnairalogolink = 'https://www.btcnaira.com.ng';
+var localbitcoinlogolink = 'https://www.localbitcoin.com';
+var lunologolink = 'https://www.luno.com';
+var nairaexlogolink = 'https://www.nairaex.com';
+var remitanologolink = 'https://www.remitano.com';
+$('.bitkoinafrikalogolink').attr('src',bitkoinafrikalogolink);  
+$('.bitssalogolink').attr('href',bitssalogolink);  
+$('.btcnairalogolink').attr('href',btcnairalogolink);  
+$('.localbitcoinlogolink').attr('href',localbitcoinlogolink);  
+$('.lunologolink').attr('href',lunologolink);  
+$('.nairaexlogolink').attr('href',nairaexlogolink);  
+$('.remitanologolink').attr('href',remitanologolink);  
+
+//Exchanges Page Links
+var bitkoinafrikapagelink = document.location.origin+'/p/bitkoinafrica.html';
+var bitssapagelink = document.location.origin+'/p/bitssa.html';
+var btcnairapagelink = document.location.origin+'/p/btcnaira.html';
+var localbitcoinpagelink = document.location.origin+'/p/localbitcoin.html';
+var lunopagelink = document.location.origin+'/p/luno.html';
+var nairaexpagelink = document.location.origin+'/p/nairaex.html';
+var remitanopagelink = document.location.origin+'/p/remitano.html';
+$('.bitkoinafrikapagelink').attr('href',bitkoinafrikapagelink);  
+$('.bitssapagelink').attr('href',bitssapagelink);  
+$('.btcnairapagelink').attr('href',btcnairapagelink);  
+$('.localbitcoinpagelink').attr('href',localbitcoinpagelink);  
+$('.lunopagelink').attr('href',lunopagelink);  
+$('.nairaexpagelink').attr('href',nairaexpagelink);  
+$('.remitanopagelink').attr('href',remitanopagelink);  
+
+//Exchanges Page Review Links
+var bitkoinafrikareviewlink = document.location.origin+'/p/bitkoinafrica.html#reviewlink';
+var bitssareviewlink = document.location.origin+'/p/bitssa.html#reviewlink';
+var btcnairareviewlink = document.location.origin+'/p/btcnaira.html#reviewlink';
+var localbitcoinreviewlink = document.location.origin+'/p/localbitcoin.html#reviewlink';
+var lunoreviewlink = document.location.origin+'/p/luno.html#reviewlink';
+var nairaexreviewlink = document.location.origin+'/p/nairaex.html#reviewlink';
+var remitanoreviewlink = document.location.origin+'/p/remitano.html#reviewlink';
+$('.bitkoinafrikareviewlink').attr('href',bitkoinafrikareviewlink);  
+$('.bitssareviewlink').attr('href',bitssareviewlink);  
+$('.btcnairareviewlink').attr('href',btcnairareviewlink);  
+$('.localbitcoinreviewlink').attr('href',localbitcoinreviewlink);  
+$('.lunoreviewlink').attr('href',lunoreviewlink);  
+$('.nairaexreviewlink').attr('href',nairaexreviewlink);  
+$('.remitanoreviewlink').attr('href',remitanoreviewlink); 
+
+//Exchanges Website Links
+var bitkoinafrikawebsitelink = 'https://bitkoin.africa';
+var bitssawebsitelink = 'https://www.bitssa.com';
+var btcnairawebsitelink = 'https://www.btcnaira.com.ng';
+var localbitcoinwebsitelink = 'https://www.localbitcoin.com';
+var lunowebsitelink = 'https://www.luno.com';
+var nairaexwebsitelink = 'https://www.nairaex.com';
+var remitanowebsitelink = 'https://www.remitano.com';
+$('.bitkoinafrikawebsitelink').attr('href',bitkoinafrikawebsitelink);  
+$('.bitssawebsitelink').attr('href',bitssawebsitelink);  
+$('.btcnairawebsitelink').attr('href',btcnairawebsitelink);  
+$('.localbitcoinwebsitelink').attr('href',localbitcoinwebsitelink);  
+$('.lunowebsitelink').attr('href',lunowebsitelink);  
+$('.nairaexwebsitelink').attr('href',nairaexwebsitelink);  
+$('.remitanowebsitelink').attr('href',remitanowebsitelink);  
 
 
 //Cookie code to make Cookie.get work
