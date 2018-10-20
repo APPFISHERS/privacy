@@ -841,13 +841,13 @@ $('.nairaexpagelink').attr('href',nairaexpagelink);
 $('.remitanopagelink').attr('href',remitanopagelink);  
 
 //Exchanges Page Review Links
-var bitkoinafrikareviewlink = document.location.origin+'/p/bitkoinafrica.html#reviewlink';
-var bitssareviewlink = document.location.origin+'/p/bitssa.html#reviewlink';
-var btcnairareviewlink = document.location.origin+'/p/btcnaira.html#reviewlink';
-var localbitcoinreviewlink = document.location.origin+'/p/localbitcoin.html#reviewlink';
-var lunoreviewlink = document.location.origin+'/p/luno.html#reviewlink';
-var nairaexreviewlink = document.location.origin+'/p/nairaex.html#reviewlink';
-var remitanoreviewlink = document.location.origin+'/p/remitano.html#reviewlink';
+var bitkoinafrikareviewlink = document.location.origin+'/p/bitkoinafrica.html#reviews';
+var bitssareviewlink = document.location.origin+'/p/bitssa.html#reviews';
+var btcnairareviewlink = document.location.origin+'/p/btcnaira.html#reviews';
+var localbitcoinreviewlink = document.location.origin+'/p/localbitcoin.html#reviews';
+var lunoreviewlink = document.location.origin+'/p/luno.html#reviews';
+var nairaexreviewlink = document.location.origin+'/p/nairaex.html#reviews';
+var remitanoreviewlink = document.location.origin+'/p/remitano.html#reviews';
 $('.bitkoinafrikareviewlink').attr('href',bitkoinafrikareviewlink);  
 $('.bitssareviewlink').attr('href',bitssareviewlink);  
 $('.btcnairareviewlink').attr('href',btcnairareviewlink);  
