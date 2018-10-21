@@ -118,6 +118,18 @@ $.get(baseurl)
           if ($.round(data.NGN.LUNO.gbpngn) >= $.round(data.NGN.LUNO.ystClose_gbpngn)){$('.gbpngnnavticker').addClass("coin-change-green");$('.gbpngnnavticker').removeClass("coin-change-red");}else{$('.gbpngnnavticker').removeClass("coin-change-green"); $('.gbpngnnavticker').addClass("coin-change-red");}
           if ($.round(data.NGN.LUNO.eurngn) >= $.round(data.NGN.LUNO.ystClose_eurngn)){$('.eurngnnavticker').addClass("coin-change-green");$('.eurngnnavticker').removeClass("coin-change-red");}else{$('.eurngnnavticker').removeClass("coin-change-green"); $('.eurngnnavticker').addClass("coin-change-red");}
           if ($.round(data.NGN.LUNO.cnyngn) >= $.round(data.NGN.LUNO.ystClose_cnyngn)){$('.cnyngnnavticker').addClass("coin-change-green");$('.cnyngnnavticker').removeClass("coin-change-red");}else{$('.cnyngnnavticker').removeClass("coin-change-green"); $('.cnyngnnavticker').addClass("coin-change-red");}          
+   
+            //Exchanges page 24 hour volume      
+          var luno24hrVolume = ('₦'+$.round(data.NGN.LUNO.total24hrVolume).toLocaleString('en'));   
+          var lbc24hrVolume = ('₦'+$.round(data.NGN.LOCALBITCOIN.total24hrVolume).toLocaleString('en'));   
+          var bitssa24hrVolume = ('₦'+$.round(data.NGN.BITSSA.total24hrVolume).toLocaleString('en'));   
+          var remitano24hrVolume = ('₦'+$.round(data.NGN.REMITANO.total24hrVolume).toLocaleString('en'));   
+
+          if ((data.NGN.LUNO.total24hrVolume) == '0.00'){$('.luno24hrVolume').html ('...');}else{$('.luno24hrVolume').html (luno24hrVolume);}
+          if ((data.NGN.LOCALBITCOIN.total24hrVolume) == '0.00'){$('.lbc24hrVolume').html ('...');}else{$('.lbc24hrVolume').html (lbc24hrVolume);}
+          if ((data.NGN.BITSSA.total24hrVolume) == '0.00'){$('.bitssa24hrVolume').html ('...');}else{$('.bitssa24hrVolume').html (bitssa24hrVolume);}
+          if ((data.NGN.REMITANO.total24hrVolume) == '0.00'){$('.remitano24hrVolume').html ('...');}else{$('.remitano24hrVolume').html (remitano24hrVolume);}
+          
           
           //Update Market Data
           /*BTC*/
@@ -126,7 +138,8 @@ $.get(baseurl)
           var btcexplorerlink2 = 'https://live.blockcypher.com/btc/';
           $('.btcexplorerlink2').attr('href',btcexplorerlink2); 
           var btcwebsitelink = 'https://www.bitcoin.org';
-          $('.btcwebsitelink').attr('href',btcwebsitelink);           
+          $('.btcwebsitelink').attr('href',btcwebsitelink);    
+          //Cryptocurrency page Markets
           var fiatpricelunoBTCNGN = ('₦'+$.round(data.NGN.LUNO.btcngn).toLocaleString('en'));
           var fiatpricelbcBTCNGN = ('₦'+$.round(data.NGN.LOCALBITCOIN.btcngn).toLocaleString('en'));
           var fiatpricebitssaBTCNGN = ('₦'+$.round(data.NGN.BITSSA.btcngn).toLocaleString('en'));
@@ -158,17 +171,29 @@ $.get(baseurl)
              $('.marketcapBTC').html ('&#8358;'+marketcapFormatter(data.BTC.cap_ngn, 2));$('.marketcapBTC').attr("data-order",data.BTC.cap_ngn);}
 
           /*ETH*/
-          var fiatlunopriceETHNGN = ('₦'+$.round(data.NGN.LUNO.ethngn).toLocaleString('en'));
+          var ethexplorerlink = 'https://etherscan.io';
+          $('.ethexplorerlink').attr('href',ethexplorerlink); 
+          var ethexplorerlink2 = 'https://ethplorer.io';
+          $('.ethexplorerlink2').attr('href',ethexplorerlink2); 
+          var ethwebsitelink = 'https://www.ethereum.org';
+          $('.ethwebsitelink').attr('href',ethwebsitelink);    
+          //Cryptocurrency page Markets
+          var fiatpricelunoETHNGN = ('₦'+$.round(data.NGN.LUNO.ethngn).toLocaleString('en'));
           var fiatpricelbcETHNGN = ('₦'+$.round(data.NGN.LOCALBITCOIN.ethngn).toLocaleString('en'));
           var fiatpricebitssaETHNGN = ('₦'+$.round(data.NGN.BITSSA.ethngn).toLocaleString('en'));
           var fiatpriceremitanoETHNGN = ('₦'+$.round(data.NGN.REMITANO.ethngn).toLocaleString('en'));
-          var fiatpriceethnairaETHNGN = ('₦'+$.round((parseInt(data.NGN.BTCNAIRA.ETH.buyrate) + parseInt(data.NGN.BTCNAIRA.ETH.sellrate)) / 2).toLocaleString('en'));          
+          var fiatpricebtcnairaETHNGN = ('₦'+$.round((parseInt(data.NGN.BTCNAIRA.ETH.buyrate) + parseInt(data.NGN.BTCNAIRA.ETH.sellrate)) / 2).toLocaleString('en'));          
           var fiatpriceETHUSD = ('$'+$.round(data.ETH.usd).toLocaleString('en'));
           var fiatpriceETHGBP = ('£'+$.round(data.ETH.gbp).toLocaleString('en'));
           var fiatpriceETHEUR = ('€'+$.round(data.ETH.eur).toLocaleString('en'));
           if ((data.NGN.LUNO.ethngn) == '0.00'){$('.fiatpriceETHNGN').html ('...');}else{
-              $('.fiatpriceETHNGN').html (fiatlunopriceETHNGN);
-              $('.fiatpriceETHNGN').attr('title', 'Luno:'+fiatlunopriceETHNGN+'\nLBC:'+fiatpricelbcETHNGN);}
+              $('.fiatpriceETHNGN').html (fiatpricelunoETHNGN);
+              $('.fiatpricelunoETHNGN').html (fiatpricelunoETHNGN);
+              $('.fiatpricelbcETHNGN').html (fiatpricelbcETHNGN);
+              $('.fiatpricebitssaETHNGN').html (fiatpricebitssaETHNGN);
+              $('.fiatpriceremitanoETHNGN').html (fiatpriceremitanoETHNGN);
+              $('.fiatpricebtcnairaETHNGN').html (fiatpricebtcnairaETHNGN);              
+              $('.fiatpriceETHNGN').attr('title', 'Luno:'+fiatpricelunoETHNGN+'\nLBC:'+fiatpricelbcETHNGN);}
           if ((data.ETH.usd) == '0.00'){$('.fiatpriceETHUSD').html ('...');}else{
               $('.fiatpriceETHUSD').html (fiatpriceETHUSD);}
           if ((data.ETH.gbp) == '0.00'){$('.fiatpriceETHGBP').html ('...');}else{
@@ -184,16 +209,28 @@ $.get(baseurl)
 
               
           /*XRP*/    
+          var xrpexplorerlink = 'https://xrperscan.io';
+          $('.xrpexplorerlink').attr('href',xrpexplorerlink); 
+          var xrpexplorerlink2 = 'https://xrpplorer.io';
+          $('.xrpexplorerlink2').attr('href',xrpexplorerlink2); 
+          var xrpwebsitelink = 'https://www.xrpereum.org';
+          $('.xrpwebsitelink').attr('href',xrpwebsitelink);    
+          //Cryptocurrency page Markets
           var fiatpricelunoXRPNGN = ('₦'+$.round(data.NGN.LUNO.xrpngn).toLocaleString('en'));
           var fiatpricelbcXRPNGN = ('₦'+$.round(data.NGN.LOCALBITCOIN.xrpngn).toLocaleString('en'));
           var fiatpricebitssaXRPNGN = ('₦'+$.round(data.NGN.BITSSA.xrpngn).toLocaleString('en'));
           var fiatpriceremitanoXRPNGN = ('₦'+$.round(data.NGN.REMITANO.xrpngn).toLocaleString('en'));
-          var fiatpricexrpnairaXRPNGN = ('₦'+$.round((parseInt(data.NGN.BTCNAIRA.XRP.buyrate) + parseInt(data.NGN.BTCNAIRA.XRP.sellrate)) / 2).toLocaleString('en'));          
+          var fiatpricebtcnairaXRPNGN = ('₦'+$.round((parseInt(data.NGN.BTCNAIRA.XRP.buyrate) + parseInt(data.NGN.BTCNAIRA.XRP.sellrate)) / 2).toLocaleString('en'));           
           var fiatpriceXRPUSD = ('$'+(data.XRP.usd).toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2}));
           var fiatpriceXRPGBP = ('£'+(data.XRP.gbp).toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2}));
           var fiatpriceXRPEUR = ('€'+(data.XRP.eur).toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2}));
           if ((data.NGN.LUNO.xrpngn) == '0.00'){$('.fiatpriceXRPNGN').html ('...');}else{
               $('.fiatpriceXRPNGN').html (fiatpricelunoXRPNGN);
+              $('.fiatpricelunoXRPNGN').html (fiatpricelunoXRPNGN);
+              $('.fiatpricelbcXRPNGN').html (fiatpricelbcXRPNGN);
+              $('.fiatpricebitssaXRPNGN').html (fiatpricebitssaXRPNGN);
+              $('.fiatpriceremitanoXRPNGN').html (fiatpriceremitanoXRPNGN);
+              $('.fiatpricebtcnairaXRPNGN').html (fiatpricebtcnairaXRPNGN);                
               $('.fiatpriceXRPNGN').attr('title', 'Luno:'+fiatpricelunoXRPNGN+'\nLBC:'+fiatpricelbcXRPNGN);}
           if ((data.XRP.usd) == '0.00'){$('.fiatpriceXRPUSD').html ('...');}else{
               $('.fiatpriceXRPUSD').html (fiatpriceXRPUSD);}
@@ -213,12 +250,14 @@ $.get(baseurl)
           var fiatpricelbcBCHNGN = ('₦'+$.round(data.NGN.LOCALBITCOIN.bchngn).toLocaleString('en'));
           var fiatpricebitssaBCHNGN = ('₦'+$.round(data.NGN.BITSSA.bchngn).toLocaleString('en'));
           var fiatpriceremitanoBCHNGN = ('₦'+$.round(data.NGN.REMITANO.bchngn).toLocaleString('en'));
-          var fiatpricebchnairaBCHNGN = ('₦'+$.round((parseInt(data.NGN.BTCNAIRA.BCH.buyrate) + parseInt(data.NGN.BTCNAIRA.BCH.sellrate)) / 2).toLocaleString('en'));          
+          var fiatpricebtcnairaBCHNGN = ('₦'+$.round((parseInt(data.NGN.BTCNAIRA.BCH.buyrate) + parseInt(data.NGN.BTCNAIRA.BCH.sellrate)) / 2).toLocaleString('en'));          
           var fiatpriceBCHUSD = ('$'+$.round(data.BCH.usd).toLocaleString('en'));
           var fiatpriceBCHGBP = ('£'+$.round(data.BCH.gbp).toLocaleString('en'));
           var fiatpriceBCHEUR = ('€'+$.round(data.BCH.eur).toLocaleString('en'));
           if ((data.NGN.LUNO.bchngn) == '0.00'){$('.fiatpriceBCHNGN').html ('...');}else{
               $('.fiatpriceBCHNGN').html (fiatpricelunoBCHNGN);
+              $('.fiatpricebitssaBCHNGN').html (fiatpricebitssaBCHNGN);
+              $('.fiatpricebtcnairaBCHNGN').html (fiatpricebtcnairaBCHNGN);                
               $('.fiatpriceBCHNGN').attr('title', 'Luno:'+fiatpricelunoBCHNGN+'\nLBC:'+fiatpricelbcBCHNGN);}
           if ((data.BCH.usd) == '0.00'){$('.fiatpriceBCHUSD').html ('...');}else{
               $('.fiatpriceBCHUSD').html (fiatpriceBCHUSD);}
@@ -238,12 +277,14 @@ $.get(baseurl)
           var fiatpricelbcLTCNGN = ('₦'+$.round(data.NGN.LOCALBITCOIN.ltcngn).toLocaleString('en'));
           var fiatpricebitssaLTCNGN = ('₦'+$.round(data.NGN.BITSSA.ltcngn).toLocaleString('en'));
           var fiatpriceremitanoLTCNGN = ('₦'+$.round(data.NGN.REMITANO.ltcngn).toLocaleString('en'));
-          var fiatpriceltcnairaLTCNGN = ('₦'+$.round((parseInt(data.NGN.BTCNAIRA.LTC.buyrate) + parseInt(data.NGN.BTCNAIRA.LTC.sellrate)) / 2).toLocaleString('en'));          
+          var fiatpricebtcnairaLTCNGN = ('₦'+$.round((parseInt(data.NGN.BTCNAIRA.LTC.buyrate) + parseInt(data.NGN.BTCNAIRA.LTC.sellrate)) / 2).toLocaleString('en'));          
           var fiatpriceLTCUSD = ('$'+$.round(data.LTC.usd).toLocaleString('en'));
           var fiatpriceLTCGBP = ('£'+$.round(data.LTC.gbp).toLocaleString('en'));
           var fiatpriceLTCEUR = ('€'+$.round(data.LTC.eur).toLocaleString('en'));
           if ((data.NGN.LUNO.ltcngn) == '0.00'){$('.fiatpriceLTCNGN').html ('...');}else{
               $('.fiatpriceLTCNGN').html (fiatpricelunoLTCNGN);
+              $('.fiatpricebitssaLTCNGN').html (fiatpricebitssaLTCNGN);
+              $('.fiatpricebtcnairaLTCNGN').html (fiatpricebtcnairaLTCNGN);               
               $('.fiatpriceLTCNGN').attr('title', 'Luno:'+fiatpricelunoLTCNGN+'\nLBC:'+fiatpricelbcLTCNGN);}
           if ((data.LTC.usd) == '0.00'){$('.fiatpriceLTCUSD').html ('...');}else{
               $('.fiatpriceLTCUSD').html (fiatpriceLTCUSD);}
@@ -263,12 +304,14 @@ $.get(baseurl)
           var fiatpricelbcDASHNGN = ('₦'+$.round(data.NGN.LOCALBITCOIN.dashngn).toLocaleString('en'));
           var fiatpricebitssaDASHNGN = ('₦'+$.round(data.NGN.BITSSA.dashngn).toLocaleString('en'));
           var fiatpriceremitanoDASHNGN = ('₦'+$.round(data.NGN.REMITANO.dashngn).toLocaleString('en'));
-          var fiatpricedashnairaDASHNGN = ('₦'+$.round((parseInt(data.NGN.BTCNAIRA.DASH.buyrate) + parseInt(data.NGN.BTCNAIRA.DASH.sellrate)) / 2).toLocaleString('en'));          
+          var fiatpricebtcnairaDASHNGN = ('₦'+$.round((parseInt(data.NGN.BTCNAIRA.DASH.buyrate) + parseInt(data.NGN.BTCNAIRA.DASH.sellrate)) / 2).toLocaleString('en'));          
           var fiatpriceDASHUSD = ('$'+$.round(data.DASH.usd).toLocaleString('en'));
           var fiatpriceDASHGBP = ('£'+$.round(data.DASH.gbp).toLocaleString('en'));
           var fiatpriceDASHEUR = ('€'+$.round(data.DASH.eur).toLocaleString('en'));
           if ((data.NGN.LUNO.dashngn) == '0.00'){$('.fiatpriceDASHNGN').html ('...');}else{
               $('.fiatpriceDASHNGN').html (fiatpricelunoDASHNGN);
+              $('.fiatpricebitssaDASHNGN').html (fiatpricebitssaDASHNGN);
+              $('.fiatpricebtcnairaDASHNGN').html (fiatpricebtcnairaDASHNGN);                
               $('.fiatpriceDASHNGN').attr('title', 'Luno:'+fiatpricelunoDASHNGN+'\nLBC:'+fiatpricelbcDASHNGN);}
           if ((data.DASH.usd) == '0.00'){$('.fiatpriceDASHUSD').html ('...');}else{
               $('.fiatpriceDASHUSD').html (fiatpriceDASHUSD);}
@@ -755,7 +798,7 @@ $.get(baseurl)
        
        //Update exchanges .wpac-review-count content and trigger runExchange(); observer
        function wpac_ajax_init() {
-       WPac.init({widget: 'ReviewCount', id: 13549, html: '<span style="color: #ff9800;" data-order="{{=it.rating}}">{{=it.stars}} {{=it.rating}}</span>'});
+       WPac.init({widget: 'ReviewCount', id: 14539, html: '<span style="color: #ff9800;" data-order="{{=it.rating}}">{{=it.stars}} {{=it.rating}}</span>'});
         }
         $.getScript('https://embed.widgetpack.com/widget.js', function(){ 
            wpac_ajax_init();
@@ -797,43 +840,90 @@ lunoRates();
 
 
 //BTCNaira website Data
+var bnConverterbuyselllink = document.location.origin+'/p/buy.html';
 var btcnairabuylink = document.location.origin+'/p/buy.html';
 var btcnairaselllink = document.location.origin+'/p/sell.html';
 var btcnairaminerlink = document.location.origin+'/p/miner.html';
+$('.bnConverterbuysell').attr('href',bnConverterbuyselllink);  
 $('.btcnairabuylink').attr('href',btcnairabuylink);  
 $('.btcnairaselllink').attr('href',btcnairaselllink);  
 $('.btcnairaminerlink').attr('href',btcnairaminerlink);  
 
 //Cryptocurrency Page Links
 var btcpagelink = document.location.origin+'/2018/10/bitcoin.html';
+var ethpagelink = document.location.origin+'/2018/10/ethereum.html';
+var xrppagelink = document.location.origin+'/2018/10/ripple.html';
+var bchpagelink = document.location.origin+'/2018/10/bitcoin-cash.html';
+var eospagelink = document.location.origin+'/2018/10/eos.html';
+var xlmpagelink = document.location.origin+'/2018/10/stellar.html';
+var ltcpagelink = document.location.origin+'/2018/10/litecoin.html';
+var usdtpagelink = document.location.origin+'/2018/10/tether.html';
+var adapagelink = document.location.origin+'/2018/10/cardano.html';
+var xmrpagelink = document.location.origin+'/2018/10/monero.html';
+var trxpagelink = document.location.origin+'/2018/10/tron.html';
+var iotapagelink = document.location.origin+'/2018/10/iota.html';
+var dashpagelink = document.location.origin+'/2018/10/dashcoin.html';
+var bnbpagelink = document.location.origin+'/2018/10/binance.html';
+var neopagelink = document.location.origin+'/2018/10/neo.html';
+var etcpagelink = document.location.origin+'/2018/10/ethereum-classic.html';
+var xempagelink = document.location.origin+'/2018/10/nem.html';
+var xtzpagelink = document.location.origin+'/2018/10/tezos.html';
+var vetpagelink = document.location.origin+'/2018/10/vechain.html';
+var zecpagelink = document.location.origin+'/2018/10/zcash.html';
+var dogepagelink = document.location.origin+'/2018/10/dogecoin.html';
+
 $('.btcpagelink').attr('href',btcpagelink); 
+$('.ethpagelink').attr('href',ethpagelink); 
+$('.xrppagelink').attr('href',xrppagelink); 
+$('.bchpagelink').attr('href',bchpagelink); 
+$('.eospagelink').attr('href',eospagelink); 
+$('.xlmpagelink').attr('href',xlmpagelink); 
+$('.ltcpagelink').attr('href',ltcpagelink); 
+$('.usdtpagelink').attr('href',usdtpagelink); 
+$('.adapagelink').attr('href',adapagelink); 
+$('.xmrpagelink').attr('href',xmrpagelink); 
+$('.trxpagelink').attr('href',trxpagelink); 
+$('.iotapagelink').attr('href',iotapagelink); 
+$('.dashpagelink').attr('href',dashpagelink); 
+$('.bnbpagelink').attr('href',bnbpagelink); 
+$('.neopagelink').attr('href',neopagelink); 
+$('.etcpagelink').attr('href',etcpagelink); 
+$('.xempagelink').attr('href',xempagelink); 
+$('.xtzpagelink').attr('href',xtzpagelink); 
+$('.vetpagelink').attr('href',vetpagelink); 
+$('.zecpagelink').attr('href',zecpagelink); 
+$('.dogepagelink').attr('href',dogepagelink); 
 
 //Exchanges Logo Links
-var bitkoinafrikalogolink = 'https://1.bp.blogspot.com/-fdhqxmsGGXU/W5a-IzVJZbI/AAAAAAAABMs/5V4TPhxJmAMrBYlAeXQg-zBH2lNljnu9QCLcBGAs/s1600/luno.png';
-var bitssalogolink = 'https://www.bitssa.com';
-var btcnairalogolink = 'https://www.btcnaira.com.ng';
-var localbitcoinlogolink = 'https://www.localbitcoin.com';
-var lunologolink = 'https://www.luno.com';
-var nairaexlogolink = 'https://www.nairaex.com';
-var remitanologolink = 'https://www.remitano.com';
-$('.bitkoinafrikalogolink').attr('src',bitkoinafrikalogolink);  
-$('.bitssalogolink').attr('href',bitssalogolink);  
-$('.btcnairalogolink').attr('href',btcnairalogolink);  
-$('.localbitcoinlogolink').attr('href',localbitcoinlogolink);  
-$('.lunologolink').attr('href',lunologolink);  
-$('.nairaexlogolink').attr('href',nairaexlogolink);  
-$('.remitanologolink').attr('href',remitanologolink);  
+var bitkoinafricalogolink = 'https://2.bp.blogspot.com/-FpMsOQmfc6w/W8zMBp6ddlI/AAAAAAAABOA/Yin1xX4pr2MBaRdNbwmcK-yRv7MzfxEaQCLcBGAs/s320/bitkoinAfrica.png';
+var bitssalogolink = 'https://1.bp.blogspot.com/-eVz_tc0MWeQ/W8zLpXIdZ1I/AAAAAAAABN4/H1tV6Qxf8m0fDq0j-deaw5Jj2djH6IRkgCLcBGAs/s1600/bitssa.png';
+var bitpesalogolink = 'https://2.bp.blogspot.com/-8px9GKn-pLs/W8zSAPyWBQI/AAAAAAAABOU/ejtGXg7f7fAR7yVkrgEDDki1dvtQU_mOgCLcBGAs/s1600/bitpesa.png';
+var btcnairalogolink = 'https://3.bp.blogspot.com/-IVHHFsuPiQY/W5fszzbftKI/AAAAAAAABM4/gxULtyHzWsUxAPqenrr_xPzFC9OtaBj4QCLcBGAs/s1600/btcnaira-logo.png';
+var localbitcoinlogolink = 'https://4.bp.blogspot.com/-kmbqHrhUYSk/W8zMSnMOKOI/AAAAAAAABOI/ZN8Rqz8m4KUQkJm53IWGEuM5cCpni1ajgCLcBGAs/s1600/localbitcoin.png';
+var lunologolink = 'https://1.bp.blogspot.com/-fdhqxmsGGXU/W5a-IzVJZbI/AAAAAAAABMs/5V4TPhxJmAMrBYlAeXQg-zBH2lNljnu9QCLcBGAs/s1600/luno.png';
+var nairaexlogolink = 'https://2.bp.blogspot.com/-8d9QjYiXsDU/W8zK0f2hV-I/AAAAAAAABNo/E3m_q9jIaLYwGhE2ruDd9MzqITR1ckGCgCLcBGAs/s1600/nairaex.png';
+var remitanologolink = 'https://2.bp.blogspot.com/-qLJa-Gv3STo/W8zLMnMOu7I/AAAAAAAABNw/EaezEJ4zxV8CL2p316PdocpYYa7OEO_pgCLcBGAs/s1600/remitano.png';
+$('.bitkoinafricalogolink').attr('src',bitkoinafricalogolink);  
+$('.bitssalogolink').attr('src',bitssalogolink); 
+$('.bitpesalogolink').attr('src',bitpesalogolink); 
+$('.btcnairalogolink').attr('src',btcnairalogolink);  
+$('.localbitcoinlogolink').attr('src',localbitcoinlogolink);  
+$('.lunologolink').attr('src',lunologolink);  
+$('.nairaexlogolink').attr('src',nairaexlogolink);  
+$('.remitanologolink').attr('src',remitanologolink);  
 
 //Exchanges Page Links
-var bitkoinafrikapagelink = document.location.origin+'/p/bitkoinafrica.html';
+var bitkoinafricapagelink = document.location.origin+'/p/bitkoinafrica.html';
 var bitssapagelink = document.location.origin+'/p/bitssa.html';
+var bitpesapagelink = document.location.origin+'/p/bitpesa.html';
 var btcnairapagelink = document.location.origin+'/p/btcnaira.html';
 var localbitcoinpagelink = document.location.origin+'/p/localbitcoin.html';
 var lunopagelink = document.location.origin+'/p/luno.html';
 var nairaexpagelink = document.location.origin+'/p/nairaex.html';
 var remitanopagelink = document.location.origin+'/p/remitano.html';
-$('.bitkoinafrikapagelink').attr('href',bitkoinafrikapagelink);  
+$('.bitkoinafricapagelink').attr('href',bitkoinafricapagelink);  
 $('.bitssapagelink').attr('href',bitssapagelink);  
+$('.bitpesapagelink').attr('href',bitpesapagelink);  
 $('.btcnairapagelink').attr('href',btcnairapagelink);  
 $('.localbitcoinpagelink').attr('href',localbitcoinpagelink);  
 $('.lunopagelink').attr('href',lunopagelink);  
@@ -841,15 +931,17 @@ $('.nairaexpagelink').attr('href',nairaexpagelink);
 $('.remitanopagelink').attr('href',remitanopagelink);  
 
 //Exchanges Page Review Links
-var bitkoinafrikareviewlink = document.location.origin+'/p/bitkoinafrica.html#reviews';
+var bitkoinafricareviewlink = document.location.origin+'/p/bitkoinafrica.html#reviews';
 var bitssareviewlink = document.location.origin+'/p/bitssa.html#reviews';
+var bitpesareviewlink = document.location.origin+'/p/bitpesa.html#reviews';
 var btcnairareviewlink = document.location.origin+'/p/btcnaira.html#reviews';
 var localbitcoinreviewlink = document.location.origin+'/p/localbitcoin.html#reviews';
 var lunoreviewlink = document.location.origin+'/p/luno.html#reviews';
 var nairaexreviewlink = document.location.origin+'/p/nairaex.html#reviews';
 var remitanoreviewlink = document.location.origin+'/p/remitano.html#reviews';
-$('.bitkoinafrikareviewlink').attr('href',bitkoinafrikareviewlink);  
+$('.bitkoinafricareviewlink').attr('href',bitkoinafricareviewlink);  
 $('.bitssareviewlink').attr('href',bitssareviewlink);  
+$('.bitpesareviewlink').attr('href',bitpesareviewlink);  
 $('.btcnairareviewlink').attr('href',btcnairareviewlink);  
 $('.localbitcoinreviewlink').attr('href',localbitcoinreviewlink);  
 $('.lunoreviewlink').attr('href',lunoreviewlink);  
@@ -857,15 +949,17 @@ $('.nairaexreviewlink').attr('href',nairaexreviewlink);
 $('.remitanoreviewlink').attr('href',remitanoreviewlink); 
 
 //Exchanges Website Links
-var bitkoinafrikawebsitelink = 'https://bitkoin.africa';
+var bitkoinafricawebsitelink = 'https://bitkoin.africa';
 var bitssawebsitelink = 'https://www.bitssa.com';
+var bitpesawebsitelink = 'https://www.bitpesa.com';
 var btcnairawebsitelink = 'https://www.btcnaira.com.ng';
 var localbitcoinwebsitelink = 'https://www.localbitcoin.com';
 var lunowebsitelink = 'https://www.luno.com';
 var nairaexwebsitelink = 'https://www.nairaex.com';
 var remitanowebsitelink = 'https://www.remitano.com';
-$('.bitkoinafrikawebsitelink').attr('href',bitkoinafrikawebsitelink);  
+$('.bitkoinafricawebsitelink').attr('href',bitkoinafricawebsitelink);  
 $('.bitssawebsitelink').attr('href',bitssawebsitelink);  
+$('.bitpesawebsitelink').attr('href',bitpesawebsitelink);  
 $('.btcnairawebsitelink').attr('href',btcnairawebsitelink);  
 $('.localbitcoinwebsitelink').attr('href',localbitcoinwebsitelink);  
 $('.lunowebsitelink').attr('href',lunowebsitelink);  
