@@ -139,6 +139,12 @@ $.get(baseurl)
           $('.btcexplorerlink2').attr('href',btcexplorerlink2); 
           var btcwebsitelink = 'https://www.bitcoin.org';
           $('.btcwebsitelink').attr('href',btcwebsitelink);    
+          var btcwalletlink1 = 'https://www.blockchain.com';
+          $('.btcwalletlink1').attr('href',btcwalletlink1); 
+          $('.btcwalletlink1').html('Blockchain Wallet'); 
+          var btcwalletlink2 = 'https://www.coinomi.com/downloads/';
+          $('.btcwalletlink2').attr('href',btcwalletlink2); 
+          $('.btcwalletlink2').html('Coinomi Android Wallet');           
           //Cryptocurrency page Markets
           var fiatpricelunoBTCNGN = ('₦'+$.round(data.NGN.LUNO.btcngn).toLocaleString('en'));
           var fiatpricelbcBTCNGN = ('₦'+$.round(data.NGN.LOCALBITCOIN.btcngn).toLocaleString('en'));
@@ -209,11 +215,11 @@ $.get(baseurl)
 
               
           /*XRP*/    
-          var xrpexplorerlink = 'https://xrperscan.io';
+          var xrpexplorerlink = 'https://bithomp.com/explorer/';
           $('.xrpexplorerlink').attr('href',xrpexplorerlink); 
-          var xrpexplorerlink2 = 'https://xrpplorer.io';
+          var xrpexplorerlink2 = 'https://xrpcharts.ripple.com/#/graph/';
           $('.xrpexplorerlink2').attr('href',xrpexplorerlink2); 
-          var xrpwebsitelink = 'https://www.xrpereum.org';
+          var xrpwebsitelink = 'https://ripple.com/xrp/';
           $('.xrpwebsitelink').attr('href',xrpwebsitelink);    
           //Cryptocurrency page Markets
           var fiatpricelunoXRPNGN = ('₦'+$.round(data.NGN.LUNO.xrpngn).toLocaleString('en'));
@@ -953,7 +959,7 @@ var bitkoinafricawebsitelink = 'https://bitkoin.africa';
 var bitssawebsitelink = 'https://www.bitssa.com';
 var bitpesawebsitelink = 'https://www.bitpesa.com';
 var btcnairawebsitelink = 'https://www.btcnaira.com.ng';
-var localbitcoinwebsitelink = 'https://www.localbitcoin.com';
+var localbitcoinwebsitelink = 'https://localbitcoins.com/?ch=am9k';
 var lunowebsitelink = 'https://www.luno.com';
 var nairaexwebsitelink = 'https://www.nairaex.com';
 var remitanowebsitelink = 'https://www.remitano.com';
