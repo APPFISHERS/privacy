@@ -1,28 +1,3 @@
- //product navbar dropdown
-
- $(function(){ /*
-  $("#navbar .nav-link").hover(
-    function() {
-      $('#products-menu.dropdown-menu', this).show();
-      $(this).toggleClass('open');
-    },
-    function() {
-      $('#products-menu.dropdown-menu', this).hide();
-      $(this).toggleClass('open');
-    });
-    */
-   /* 
-  $(".navbar .nav-rates-tab").hover(
-    function() {
-      $('#rates-menu.dropdown-menu', this).show();
-      $(this).toggleClass('open');
-    },
-    function() {
-      $('#rates-menu.dropdown-menu', this).hide();
-      $(this).toggleClass('open');
-    }); */
-
-}); 
 // Market cap formatting
 function marketcapFormatter(num, digits) {
   var si = [
@@ -131,7 +106,7 @@ $.get(baseurl)
           if ((data.NGN.REMITANO.total24hrVolume) == '0.00'){$('.remitano24hrVolume').html ('...');}else{$('.remitano24hrVolume').html (remitano24hrVolume);}
           
           
-          //Update Market Data
+          //Update Market and Cryptocoins Data
           /*BTC*/
           var btcexplorerlink = 'https://www.blockchain.com/explorer';
           $('.btcexplorerlink').attr('href',btcexplorerlink); 
@@ -716,10 +691,11 @@ $.get(baseurl)
              //Total BTCNGN 24hour volume for all exchanges
              $('.totalBTCNGN24hrvolume').html('&#8358;'+(parseInt(data.NGN.LUNO.btcngn24hrVolume) + parseInt(data.NGN.BITSSA.btcngn24hrVolume) + parseInt(data.NGN.LOCALBITCOIN.btcngn24hrVolume) + parseInt(data.NGN.REMITANO.btcngn24hrVolume)).toLocaleString('en'));
              //Total ETHNGN 24hour volume for all exchanges
-             $('.totalETHNGN24hrvolume').html('&#8358;'+(parseInt(data.NGN.REMITANO.ethngn24hrVolume)).toLocaleString('en'));
-
-        //DataTable Sorting Code    
-        //Cryptocurrencies Table
+             $('.totalETHNGN24hrvolume').html('&#8358;'+(parseInt(data.NGN.LUNO.ethngn24hrVolume) + parseInt(data.NGN.REMITANO.ethngn24hrVolume)).toLocaleString('en'));
+ 
+ 
+   //////////DataTable Sorting Code/////////////   
+        
      /*    $('#marketTable').DataTable({
          paging: true
         //	, pageLength: 6
@@ -768,9 +744,6 @@ $.get(baseurl)
     //Market Table  Stops
      
      
-            //DataTable destroy to get new data 
-     //  $('#exchangetable').dataTable().fnDestroy();   
-      
        //Exchanges Table  Starts
     if( $('#exchangetable').length ) {// Check if the div exists before running the code
        function runExchange(){
@@ -909,6 +882,7 @@ var localbitcoinlogolink = 'https://4.bp.blogspot.com/-kmbqHrhUYSk/W8zMSnMOKOI/A
 var lunologolink = 'https://1.bp.blogspot.com/-fdhqxmsGGXU/W5a-IzVJZbI/AAAAAAAABMs/5V4TPhxJmAMrBYlAeXQg-zBH2lNljnu9QCLcBGAs/s1600/luno.png';
 var nairaexlogolink = 'https://2.bp.blogspot.com/-8d9QjYiXsDU/W8zK0f2hV-I/AAAAAAAABNo/E3m_q9jIaLYwGhE2ruDd9MzqITR1ckGCgCLcBGAs/s1600/nairaex.png';
 var remitanologolink = 'https://2.bp.blogspot.com/-qLJa-Gv3STo/W8zLMnMOu7I/AAAAAAAABNw/EaezEJ4zxV8CL2p316PdocpYYa7OEO_pgCLcBGAs/s1600/remitano.png';
+var changellylogolink = 'https://1.bp.blogspot.com/-X4W34KpGJ8k/W89TPsuCdVI/AAAAAAAACC4/EWXA3jUkISY0uw-2XDUoS8t-KRoVQMg-wCLcBGAs/s1600/changelly.png';
 $('.bitkoinafricalogolink').attr('src',bitkoinafricalogolink);  
 $('.bitssalogolink').attr('src',bitssalogolink); 
 $('.bitpesalogolink').attr('src',bitpesalogolink); 
@@ -917,6 +891,8 @@ $('.localbitcoinlogolink').attr('src',localbitcoinlogolink);
 $('.lunologolink').attr('src',lunologolink);  
 $('.nairaexlogolink').attr('src',nairaexlogolink);  
 $('.remitanologolink').attr('src',remitanologolink);  
+$('.changellylogolink').attr('src',changellylogolink);  
+
 
 //Exchanges Page Links
 var bitkoinafricapagelink = document.location.origin+'/p/bitkoinafrica.html';
@@ -973,7 +949,7 @@ $('.nairaexwebsitelink').attr('href',nairaexwebsitelink);
 $('.remitanowebsitelink').attr('href',remitanowebsitelink);  
 
 
-//Cookie code to make Cookie.get work
+//Cookie code to make Cookie.get work for Night Mode
 !function(e){var n=!1;if("function"==typeof define&&define.amd&&(define(e),n=!0),"object"==typeof exports&&(module.exports=e(),n=!0),!n){var o=window.Cookies,t=window.Cookies=e();t.noConflict=function(){return window.Cookies=o,t}}}(function(){function e(){for(var e=0,n={};e<arguments.length;e++){var o=arguments[e];for(var t in o)n[t]=o[t]}return n}function n(o){function t(n,r,i){var c;if("undefined"!=typeof document){if(arguments.length>1){if(i=e({path:"/"},t.defaults,i),"number"==typeof i.expires){var a=new Date;a.setMilliseconds(a.getMilliseconds()+864e5*i.expires),i.expires=a}i.expires=i.expires?i.expires.toUTCString():"";try{c=JSON.stringify(r),/^[\{\[]/.test(c)&&(r=c)}catch(e){}r=o.write?o.write(r,n):encodeURIComponent(String(r)).replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g,decodeURIComponent),n=encodeURIComponent(String(n)),n=n.replace(/%(23|24|26|2B|5E|60|7C)/g,decodeURIComponent),n=n.replace(/[\(\)]/g,escape);var f="";for(var s in i)i[s]&&(f+="; "+s,i[s]!==!0&&(f+="="+i[s]));return document.cookie=n+"="+r+f}n||(c={});for(var p=document.cookie?document.cookie.split("; "):[],d=0;d<p.length;d++){var u=p[d].split("="),l=u.slice(1).join("=");'"'===l.charAt(0)&&(l=l.slice(1,-1));try{var g=u[0].replace(/(%[0-9A-Z]{2})+/g,decodeURIComponent);if(l=o.read?o.read(l,g):o(l,g)||l.replace(/(%[0-9A-Z]{2})+/g,decodeURIComponent),this.json)try{l=JSON.parse(l)}catch(e){}if(n===g){c=l;break}n||(c[g]=l)}catch(e){}}return c}}return t.set=t,t.get=function(e){return t.call(t,e)},t.getJSON=function(){return t.apply({json:!0},[].slice.call(arguments))},t.defaults={},t.remove=function(n,o){t(n,"",e(o,{expires:-1}))},t.withConverter=n,t}return n(function(){})});
 
 
@@ -1024,7 +1000,7 @@ $("#news").removeClass("nightmode");
 $(".footer").css("background", "#1a2c4e");
 Cookies.set("mode", 'light');
 }
-
+//Night Mode Default Selection by Cookie
 $(function() {
     //selecting radio with existing cookie
      if(Cookies.get('mode')==null){//Do nothing if no mode is found in cookie
