@@ -815,6 +815,7 @@ $.get(baseurl)
 }
 
 //Use Luno Rates Data on default
+setInterval(lunoRates, 60000)
 lunoRates();
 
 
