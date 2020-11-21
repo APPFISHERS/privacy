@@ -75,6 +75,8 @@ $.get(baseurl)
           $('#vetngnField').val ($.round(data.NGN.LUNO.vetngn).toLocaleString('en'));}           
           if ((data.NGN.LUNO.dogengn) == '0.00'){$('#dogengnField').val ('...');}else{
           $('#dogengnField').val ($.round(data.NGN.LUNO.dogengn).toLocaleString('en'));}           
+          if ((data.NGN.LUNO.wavesngn) == '0.00'){$('#wavesngnField').val ('...');}else{
+          $('#wavesngnField').val ($.round(data.NGN.LUNO.wavesngn).toLocaleString('en'));}           
           if ((data.NGN.LUNO.zecngn) == '0.00'){$('#zecngnField').val ('...');}else{
           $('#zecngnField').val ($.round(data.NGN.LUNO.zecngn).toLocaleString('en'));}           
           
@@ -630,6 +632,29 @@ $.get(baseurl)
               $('.marketcapDOGE').html ('&#8358;'+marketcapFormatter(data.DOGE.cap_ngn, 2));
               $('.marketcapDOGE').attr("data-order",data.DOGE.cap_ngn);}
         
+          /*WAVES*/    
+          var fiatpricelunoWAVESNGN = ('₦'+parseFloat(data.NGN.LUNO.wavesngn).toFixed(2));
+          var fiatpricelbcWAVESNGN = ('₦'+parseFloat(data.NGN.LOCALBITCOIN.wavesngn).toFixed(2));
+          var fiatpriceWAVESUSD = ('$'+parseFloat(data.WAVES.usd).toFixed(3));
+          var fiatpriceWAVESGBP = ('£'+parseFloat(data.WAVES.gbp).toFixed(3));
+          var fiatpriceWAVESEUR = ('€'+parseFloat(data.WAVES.eur).toFixed(3));
+          if ((data.NGN.LUNO.wavesngn) == '0.00'){$('.fiatpriceWAVESNGN').html ('...');}else{
+              $('.fiatpriceWAVESNGN').html (fiatpricelunoWAVESNGN);
+              $('.fiatpriceWAVESNGN').attr('title', 'Luno:'+fiatpricelunoWAVESNGN+'\nLBC:'+fiatpricelbcWAVESNGN);}
+          if ((data.WAVES.usd) == '0.00'){$('.fiatpriceWAVESUSD').html ('...');}else{
+              $('.fiatpriceWAVESUSD').html (fiatpriceWAVESUSD);}
+          if ((data.WAVES.gbp) == '0.00'){$('.fiatpriceWAVESGBP').html ('...');}else{
+              $('.fiatpriceWAVESGBP').html (fiatpriceWAVESGBP);}
+          if ((data.WAVES.eur) == '0.00'){$('.fiatpriceWAVESEUR').html ('...');}else{
+              $('.fiatpriceWAVESEUR').html (fiatpriceWAVESEUR);}
+          if ((data.WAVES.DailyChange) == '0.00'){$('.dailychangeWAVES').html ('0.00');}else{$('.dailychangeWAVES').html(data.WAVES.DailyChange+'%');}
+          if ((data.WAVES.DailyChange) < '0'){$('tr.waves').addClass("coin--red");$('tr.waves').removeClass("coin--green");}else{$('tr.waves').addClass("coin--green");$('tr.waves').removeClass("coin--red");}            
+          if ((data.WAVES.cap_ngn) == '0.00'){$('.marketcapWAVES').html ('...');}else{
+              $('.marketcapWAVES').attr('title', 'Supply: '+data.WAVES.supply);
+              $('.wavessupply').html($.round(data.WAVES.supply).toLocaleString('en'));
+              $('.marketcapWAVES').html ('&#8358;'+marketcapFormatter(data.WAVES.cap_ngn, 2));
+              $('.marketcapWAVES').attr("data-order",data.WAVES.cap_ngn);}
+              
           /*ZEC*/    
           var fiatpricelunoZECNGN = ('₦'+$.round(data.NGN.LUNO.zecngn).toLocaleString('en'));
           var fiatpricelbcZECNGN = ('₦'+$.round(data.NGN.LOCALBITCOIN.zecngn).toLocaleString('en'));
@@ -851,6 +876,8 @@ var xtzpagelink = document.location.origin+'/2018/10/tezos.html';
 var vetpagelink = document.location.origin+'/2018/10/vechain.html';
 var zecpagelink = document.location.origin+'/2018/10/zcash.html';
 var dogepagelink = document.location.origin+'/2018/10/dogecoin.html';
+var wavespagelink = document.location.origin+'/2018/10/wavescoin.html';
+
 
 $('.btcpagelink').attr('href',btcpagelink); 
 $('.ethpagelink').attr('href',ethpagelink); 
@@ -873,6 +900,7 @@ $('.xtzpagelink').attr('href',xtzpagelink);
 $('.vetpagelink').attr('href',vetpagelink); 
 $('.zecpagelink').attr('href',zecpagelink); 
 $('.dogepagelink').attr('href',dogepagelink); 
+$('.wavespagelink').attr('href',wavespagelink); 
 
 //Exchanges Logo Links
 var bitkoinafricalogolink = 'https://2.bp.blogspot.com/-FpMsOQmfc6w/W8zMBp6ddlI/AAAAAAAABOA/Yin1xX4pr2MBaRdNbwmcK-yRv7MzfxEaQCLcBGAs/s320/bitkoinAfrica.png';
