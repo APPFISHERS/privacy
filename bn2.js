@@ -876,7 +876,7 @@ var xtzpagelink = document.location.origin+'/2018/10/tezos.html';
 var vetpagelink = document.location.origin+'/2018/10/vechain.html';
 var zecpagelink = document.location.origin+'/2018/10/zcash.html';
 var dogepagelink = document.location.origin+'/2018/10/dogecoin.html';
-var wavespagelink = document.location.origin+'/2018/10/wavescoin.html';
+var wavespagelink = document.location.origin+'/2017/01/waves.html';
 
 
 $('.btcpagelink').attr('href',btcpagelink); 
