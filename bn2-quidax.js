@@ -28,7 +28,7 @@ $gbpngn = $('.gbpngnnav');
 $eurngn = $('.eurngnnav');
 $cnyngn = $('.cnyngnnav');
 $.round = Math.round;
-var baseurl = 'https'+'://'+'api.'+'btc'+'na'+'ir'+'a'+'.com'+'.n'+'g'+'/'+'v1'+'/'+'rates/';
+var baseurl = 'https://bn-nodejs.vercel.app/v1/rates';
 $.get(baseurl)
     .then(function (data) {
           //update market cap (Always checks if data is 0 before parsing) 
