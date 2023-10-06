@@ -32,8 +32,15 @@ var baseurl = 'https://bn-nodejs.vercel.app/v1/rates/';
 $.get(baseurl)
     .then(function (data) {
           //update market cap (Always checks if data is 0 before parsing) 
-          if ((data.marketcap_ngn) == '0.00'){$('.marketcap').html ('...');$('.marketcapbottom').html ('...');}else{
-          $('.marketcap').html ('&#8358;'+marketcapFormatter(data.marketcap_ngn, 2));$('.marketcapbottom').html ('&#8358;'+(data.marketcap_ngn).toLocaleString('en'));$('.marketcapfetch').html ('Fetched: ' + new Date().toString("MMMM dd yyyy, hh:mm:ss tt"));}//&#8358; for Naira html entity
+       function formatCurrency(n) {
+      return parseFloat(n).toLocaleString('en-US', { style: 'currency', currency: 'NGN', minimumFractionDigits: 2 });
+       }
+       if (data.marketcap_ngn == '0.00') {$('.marketcap').html('...');$('.marketcapbottom').html('...');
+      } else {
+          $('.marketcap').html('&#8358;' + marketcapFormatter(data.marketcap_ngn, 2));
+          $('.marketcapbottom').html(formatCurrency(data.marketcap_ngn));
+          $('.marketcapfetch').html('Fetched: ' + new Date().toString("MMMM dd yyyy, hh:mm:ss tt"));
+        }
           //Navbar cryptorates
           if ((data.NGN.QUIDAX.btcngn) == '0.00'){$('#btcngnField').val ('...');}else{
           $('#btcngnField').val ($.round(data.NGN.QUIDAX.btcngn).toLocaleString('en'));}
