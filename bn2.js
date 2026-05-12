@@ -85,27 +85,36 @@ function populateCryptocoinsTable(data) {
       + "</tr>"
     );
     // Update homepage marquee / per-coin spans (.fiatpriceXNGN, .dailychangeX, .marketcapX, etc.)
-    $('.fiatprice' + symbol + 'NGN').html(ngn);
-    $('.fiatprice' + symbol + 'USD').html(usd);
-    $('.fiatprice' + symbol + 'GBP').html(gbp);
-    $('.fiatprice' + symbol + 'EUR').html(eur);
-    $('.dailychange' + symbol).html(change);
-    var $tr = $('tr.' + symLow);
-    if (isFinite(changeNum) && changeNum < 0) {
-      $tr.addClass('coin--red').removeClass('coin--green');
-    } else {
-      $tr.addClass('coin--green').removeClass('coin--red');
-    }
-    var $cap = $('.marketcap' + symbol);
-    if (isFinite(capVal) && capVal > 0) {
-      $cap.html('&#8358;' + marketcapFormatter(capVal, 2));
-      $cap.attr('data-order', capVal);
-      if (c.supply != null) {
-        $cap.attr('title', 'Supply: ' + c.supply);
-        $('.' + symLow + 'supply').html(Math.round(parseFloat(c.supply)).toLocaleString('en'));
+    // Skip global per-symbol selectors when the lowercased symbol isn't a valid CSS
+    // class identifier (e.g. starts with a digit) - those selectors would throw in
+    // jQuery and abort the rest of the populate pass.
+    var safeClass = /^[A-Za-z_-][\w-]*$/.test(symLow);
+    if (safeClass) {
+      $('.fiatprice' + symbol + 'NGN').html(ngn);
+      $('.fiatprice' + symbol + 'USD').html(usd);
+      $('.fiatprice' + symbol + 'GBP').html(gbp);
+      $('.fiatprice' + symbol + 'EUR').html(eur);
+      $('.dailychange' + symbol).html(change);
+      var $tr = $('tr.' + symLow);
+      if (isFinite(changeNum) && changeNum < 0) {
+        $tr.addClass('coin--red').removeClass('coin--green');
+      } else {
+        $tr.addClass('coin--green').removeClass('coin--red');
       }
-    } else {
-      $cap.html('...');
+      var $cap = $('.marketcap' + symbol);
+      if (isFinite(capVal) && capVal > 0) {
+        $cap.html('&#8358;' + marketcapFormatter(capVal, 2));
+        $cap.attr('data-order', capVal);
+        if (c.supply != null) {
+          $cap.attr('title', 'Supply: ' + c.supply);
+          var supplyN = parseFloat(c.supply);
+          if (isFinite(supplyN)) {
+            $('.' + symLow + 'supply').html(Math.round(supplyN).toLocaleString('en'));
+          }
+        }
+      } else {
+        $cap.html('...');
+      }
     }
   });
   $tbody.html(rows.join(''));
@@ -290,59 +299,6 @@ $.get(baseurl)
     $('.marketcapbottom').html('&#8358;' + formatWithCommas(data.marketcap_ngn));
     $('.marketcapfetch').html('Fetched: ' + new Date().toString("MMMM dd yyyy, hh:mm:ss tt"));
        }
-            //Exchanges page 24 hour volume
-          var quidax24hrVolume = ('₦'+$.round(data.NGN.QUIDAX.total24hrVolume).toLocaleString('en'));   
-          var lbc24hrVolume = ('₦'+$.round(data.NGN.LOCALBITCOIN.total24hrVolume).toLocaleString('en'));   
-       //   var bitssa24hrVolume = ('₦'+$.round(data.NGN.BITSSA.total24hrVolume).toLocaleString('en'));   
-          var remitano24hrVolume = ('₦'+$.round(data.NGN.REMITANO.total24hrVolume).toLocaleString('en'));   
-
-          if ((data.NGN.QUIDAX.total24hrVolume) == '0.00'){$('.quidax24hrVolume').html ('...');}else{$('.quidax24hrVolume').html (quidax24hrVolume);}
-          if ((data.NGN.LOCALBITCOIN.total24hrVolume) == '0.00'){$('.lbc24hrVolume').html ('...');}else{$('.lbc24hrVolume').html (lbc24hrVolume);}
-     //     if ((data.NGN.BITSSA.total24hrVolume) == '0.00'){$('.bitssa24hrVolume').html ('...');}else{$('.bitssa24hrVolume').html (bitssa24hrVolume);}
-          if ((data.NGN.REMITANO.total24hrVolume) == '0.00'){$('.remitano24hrVolume').html ('...');}else{$('.remitano24hrVolume').html (remitano24hrVolume);}
-          
-          
-        //Update BTCNaira Fee
-          var btcnairabtcngnbuyfee = data.NGN.BTCNAIRA.BTC.volatilityBuyFee; //FOR BUY FEE
-              $('.btcnairabtcngnbuyfee').html (btcnairabtcngnbuyfee);
-          var btcnairabtcngnsellfee = data.NGN.BTCNAIRA.BTC.volatilitySellFee; //FOR SELL FEE
-              $('.btcnairabtcngnsellfee').html (btcnairabtcngnsellfee);     
-                 
-                                        
-                                            
-         //Update Exchanges and Static Crypto Pages Data
-         if ((data.NGN.QUIDAX.total24hrVolume) == '0.00'){$('#exchanges').find('.quidax .coin-symbol.24hrvolume').html ('...');$('#cryptopagetable').find('.quidax-btcngn .coin-symbol.24hrvolume').html ('...');}else{
-              $('#exchanges').find('.quidax .coin-symbol.24hrvolume').html ('&#8358;'+marketcapFormatter(data.NGN.QUIDAX.total24hrVolume, 2));
-              $('#exchanges').find('.quidax .coin-symbol.24hrvolume').attr("data-order",data.NGN.QUIDAX.total24hrVolume);
-              $('#cryptopagetable').find('.quidax-btcngn .coin-symbol.24hrvolume').html ('&#8358;'+marketcapFormatter(data.NGN.QUIDAX.btcngn24hrVolume, 2));
-              $('#cryptopagetable').find('.quidax-btcngn .coin-symbol.24hrvolume').attr("data-order",data.NGN.QUIDAX.btcngn24hrVolume);
-         }
-  /*       if ((data.NGN.BITSSA.total24hrVolume) == '0.00'){$('#exchanges').find('.bitssa .coin-symbol.24hrvolume').html ('...');$('#cryptopagetable').find('.bitssa-btcngn .coin-symbol.24hrvolume').html ('...');}else{
-             $('#exchanges').find('.bitssa .coin-symbol.24hrvolume').html ('&#8358;'+marketcapFormatter(data.NGN.BITSSA.total24hrVolume, 2));
-             $('#exchanges').find('.bitssa .coin-symbol.24hrvolume').attr("data-order",data.NGN.BITSSA.total24hrVolume);
-             $('#cryptopagetable').find('.bitssa-btcngn .coin-symbol.24hrvolume').html ('&#8358;'+marketcapFormatter(data.NGN.BITSSA.btcngn24hrVolume, 2));
-             $('#cryptopagetable').find('.bitssa-btcngn .coin-symbol.24hrvolume').attr("data-order",data.NGN.BITSSA.btcngn24hrVolume);
-         } */
-         if ((data.NGN.LOCALBITCOIN.total24hrVolume) == '0.00'){$('#exchanges').find('.localbitcoin .coin-symbol.24hrvolume').html ('...');$('#cryptopagetable').find('.localbitcoin-btcngn .coin-symbol.24hrvolume').html ('...');}else{
-              $('#exchanges').find('.localbitcoin .coin-symbol.24hrvolume').html ('&#8358;'+marketcapFormatter(data.NGN.LOCALBITCOIN.total24hrVolume, 2));
-             $('#exchanges').find('.localbitcoin .coin-symbol.24hrvolume').attr("data-order",data.NGN.LOCALBITCOIN.total24hrVolume);
-         $('#cryptopagetable').find('.localbitcoin-btcngn .coin-symbol.24hrvolume').html ('&#8358;'+marketcapFormatter(data.NGN.LOCALBITCOIN.btcngn24hrVolume, 2));
-             $('#cryptopagetable').find('.localbitcoin-btcngn .coin-symbol.24hrvolume').attr("data-order",data.NGN.LOCALBITCOIN.btcngn24hrVolume);
-          }
-        if ((data.NGN.REMITANO.total24hrVolume) == '0.00'){$('#exchanges').find('.remitano .coin-symbol.24hrvolume').html ('...');$('#cryptopagetable').find('.remitano-btcngn .coin-symbol.24hrvolume').html ('...');}else{
-          $('#exchanges').find('.remitano .coin-symbol.24hrvolume').html ('&#8358;'+marketcapFormatter(data.NGN.REMITANO.total24hrVolume, 2));
-             $('#exchanges').find('.remitano .coin-symbol.24hrvolume').attr("data-order",data.NGN.REMITANO.total24hrVolume);    
-             $('#cryptopagetable').find('.remitano-btcngn .coin-symbol.24hrvolume').html ('&#8358;'+marketcapFormatter(data.NGN.REMITANO.btcngn24hrVolume, 2));
-             $('#cryptopagetable').find('.remitano-btcngn .coin-symbol.24hrvolume').attr("data-order",data.NGN.REMITANO.btcngn24hrVolume);
-          }  
-             
-             
-             //Total BTCNGN 24hour volume for all exchanges
-             $('.totalBTCNGN24hrvolume').html('&#8358;'+(parseInt(data.NGN.QUIDAX.btcngn24hrVolume)/* + parseInt(data.NGN.BITSSA.btcngn24hrVolume) */+ parseInt(data.NGN.LOCALBITCOIN.btcngn24hrVolume) + parseInt(data.NGN.REMITANO.btcngn24hrVolume)).toLocaleString('en'));
-             //Total ETHNGN 24hour volume for all exchanges
-             $('.totalETHNGN24hrvolume').html('&#8358;'+(parseInt(data.NGN.QUIDAX.ethngn24hrVolume) + parseInt(data.NGN.REMITANO.ethngn24hrVolume)).toLocaleString('en'));
- 
- 
    //////////DataTable Sorting Code/////////////   
         
      /*    $('#marketTable').DataTable({
