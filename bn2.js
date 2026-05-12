@@ -73,7 +73,7 @@ function populateCryptocoinsTable(data) {
       + "<td class='coin-name'><a href='" + bnEscapeHtml(pageHref) + "'>" + logoImg + bnEscapeHtml(name) + "</a></td>"
       + "<td class='coin-symbol'><a href='" + bnEscapeHtml(pageHref) + "'>" + bnEscapeHtml(symbol) + "</a></td>"
       + "<td class='coin-price ngn' data-order='" + (isFinite(ngnVal) ? ngnVal : 0) + "'><span>" + ngn + "</span></td>"
-      + "<td class='coin-change' style='display:none;'>" + bnEscapeHtml(change) + "</td>"
+      + "<td class='coin-change'>" + bnEscapeHtml(change) + "</td>"
       + "<td class='coin-price cap' data-order='" + marketcapOrder + "'><span>" + marketcap + "</span></td>"
       + "<td class='coin-price usd' data-order='" + (isFinite(usdVal) ? usdVal : 0) + "'><span>" + usd + "</span></td>"
       + "<td class='coin-price gbp' data-order='" + (isFinite(gbpVal) ? gbpVal : 0) + "'><span>" + gbp + "</span></td>"
