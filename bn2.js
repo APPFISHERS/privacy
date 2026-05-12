@@ -101,6 +101,27 @@ function populateCryptocoinsTable(data) {
     }
   });
   $tbody.html(rows.join(''));
+
+  // Initialize/re-initialize DataTable now that the tbody is in place so the
+  // homepage cryptocoins table keeps its paging (pageLength: 25), length
+  // selector, search, and market-cap sort.
+  if ($.fn && $.fn.DataTable) {
+    $table.DataTable({
+      paging: true,
+      pageLength: 25,
+      pagingType: 'simple_numbers',
+      lengthChange: true,
+      autoWidth: false,
+      scrollCollapse: false,
+      searching: true,
+      order: [[10, 'desc']],
+      ordering: true,
+      columnDefs: [
+        { orderable: false, targets: 'no-sort' },
+        { targets: [3, 6, 7, 8], type: 'formatted-num' }
+      ]
+    });
+  }
 }
 
 function populateRatesMenu(data) {
@@ -330,37 +351,8 @@ $.get(baseurl)
             {targets: 3, type: 'formatted-num'}]//Makes column with Naira sign sort correctly.
         }); 
     */
-    //Market Table  Starts
-    if( $('#marketTable').length ) {// Check if the div exists before running the code
-      //DataTable destroy each time to get new data
-      $('#marketTable').dataTable().fnDestroy();
-      
-      
-      $('#marketTable').on('init.dt', function (){
-     // This is the code for numbering DataTable dynamically after default settings
-      var t = $('#marketTable').DataTable();
-        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) { cell.innerHTML = i+1;t.rows().invalidate(); });
-      }).DataTable( {
-        //DataTable Default Settings starts
-        paging: true,
-        pageLength: 25,
-        pagingType: 'simple_numbers',
-        lengthChange: true,
-        autoWidth: false, // must be true for responsive designs when scrolling is enabled
-        //, scrollY: 371 // comment out to remove fixed header
-        scrollCollapse: false,
-        searching: true,
-        order: [[ 10, 'desc' ]], // data is pre-sorted to descending market cap. 'asc' for ascending, 'desc' for descending.
-        "ordering": true,
-        "columnDefs": [ 
-        {orderable: false, targets: "no-sort"},
-        {targets: [3,6,7,8], type: 'formatted-num'}]
-       
-      });
-     };   
-    //Market Table  Stops
-     
-     
+    //Market Table is now initialized inside populateCryptocoinsTable.
+
        //Exchanges Table  Starts
     if( $('#exchangetable').length ) {// Check if the div exists before running the code
        function runExchange(){
