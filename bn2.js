@@ -177,8 +177,8 @@ function populateRatesMenu(data) {
 }
 
 function populateNavbarFiat(data) {
-  var bank = data && data.FIAT && data.FIAT.NGN && data.FIAT.NGN.Bank;
-  if (!bank) return;
+  var p2p = data && data.FIAT && data.FIAT.NGN && data.FIAT.NGN.p2p && data.FIAT.NGN.p2p.Real;
+  if (!p2p) return;
   function set(sel, value, suffix) {
     var v = parseFloat(value);
     if (!isFinite(v) || v === 0) {
@@ -187,10 +187,10 @@ function populateNavbarFiat(data) {
       $(sel).html('&#8358;' + Math.round(v) + '/' + suffix);
     }
   }
-  set('.usdngnnav', bank.usd, '$');
-  set('.gbpngnnav', bank.gbp, '&#163;');
-  set('.eurngnnav', bank.eur, '&#8364;');
-  set('.cnyngnnav', bank.cny, '&#165;');
+  set('.usdngnnav', p2p.usd, '$');
+  set('.gbpngnnav', p2p.gbp, '&#163;');
+  set('.eurngnnav', p2p.eur, '&#8364;');
+  set('.cnyngnnav', p2p.cny, '&#165;');
 }
 
 function populateCoinPage(data) {
