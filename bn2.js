@@ -137,6 +137,23 @@ function populateRatesMenu(data) {
   $menu.html(items.join(''));
 }
 
+function populateNavbarFiat(data) {
+  var bank = data && data.FIAT && data.FIAT.NGN && data.FIAT.NGN.Bank;
+  if (!bank) return;
+  function set(sel, value, suffix) {
+    var v = parseFloat(value);
+    if (!isFinite(v) || v === 0) {
+      $(sel).html('...');
+    } else {
+      $(sel).html('&#8358;' + Math.round(v) + '/' + suffix);
+    }
+  }
+  set('.usdngnnav', bank.usd, '$');
+  set('.gbpngnnav', bank.gbp, '&#163;');
+  set('.eurngnnav', bank.eur, '&#8364;');
+  set('.cnyngnnav', bank.cny, '&#165;');
+}
+
 function populateCoinPage(data) {
   if (!$('.coinPriceNGN').length && !$('.marketcapcoin').length) return;
   var sym = (window.bnCoinPageSymbol ||
@@ -180,7 +197,7 @@ function populateCoinPage(data) {
     $('.coinWebsiteLink').attr('href', explorerLink);
     $('.coinWalletLink').attr('href', explorerLink);
   }
-  document.title = name + ' (' + sym + ') - BTCNaira';
+  document.title = name + ' (' + sym + ') ' + bnFormatFiat(c.ngn, '₦') + ' - BTCNaira';
 
   // Load the Blogger label feed for this coin once per page load.
   // Label = coin name lowercased with spaces -> dashes (e.g. "Bitcoin Cash" -> "bitcoin-cash").
@@ -220,10 +237,6 @@ function marketcapFormatter(num, digits) {
 
 //Using Quidax for Rates Data
 function quidaxRates() {
-$usdngn = $('.usdngnnav');
-$gbpngn = $('.gbpngnnav');
-$eurngn = $('.eurngnnav');
-$cnyngn = $('.cnyngnnav');
 $.round = Math.round;
 var baseurl = 'https://api.btcnaira.com.ng/v1/rates/';
 $.get(baseurl)
@@ -231,6 +244,7 @@ $.get(baseurl)
           //Auto-populate cryptocoins table and rates dropdown from data.CRYPTO
           populateCryptocoinsTable(data);
           populateRatesMenu(data);
+          populateNavbarFiat(data);
           populateCoinPage(data);
           //update market cap (Always checks if data is 0 before parsing)
       function formatWithCommas(n) {
@@ -244,22 +258,7 @@ $.get(baseurl)
     $('.marketcapbottom').html('&#8358;' + formatWithCommas(data.marketcap_ngn));
     $('.marketcapfetch').html('Fetched: ' + new Date().toString("MMMM dd yyyy, hh:mm:ss tt"));
        }
-          //Navbar exchange rates 
-          if ((data.NGN.QUIDAX.usdngn) == '0.00'){$usdngn.html ('...');}else{
-          $usdngn.html ('&#8358;'+$.round(data.NGN.QUIDAX.usdngn)+'/$');}//&#8358; for Naira html entity
-          if ((data.NGN.QUIDAX.gbpngn) == '0.00'){$gbpngn.html ('...');}else{
-          $gbpngn.html ('&#8358;'+$.round(data.NGN.QUIDAX.gbpngn)+'/&#163;');}//&#163; for gbp html entity
-          if ((data.NGN.QUIDAX.eurngn) == '0.00'){$eurngn.html ('...');}else{
-          $eurngn.html ('&#8358;'+$.round(data.NGN.QUIDAX.eurngn)+'/&#8364;');}//&#8364; for eur html entity
-          if ((data.NGN.QUIDAX.cnyngn) == '0.00'){$cnyngn.html ('...');}else{
-          $cnyngn.html ('&#8358;'+$.round(data.NGN.QUIDAX.cnyngn)+'/&#165;');}//&#165; for cny html entity          
-          //update Navbar ticker directions
-          if ($.round(data.NGN.QUIDAX.usdngn) >= $.round(data.NGN.QUIDAX.ystClose_usdngn)){$('.usdngnnavticker').addClass("coin-change-green");$('.usdngnnavticker').removeClass("coin-change-red");}else{$('.usdngnnavticker').removeClass("coin-change-green"); $('.usdngnnavticker').addClass("coin-change-red");}
-          if ($.round(data.NGN.QUIDAX.gbpngn) >= $.round(data.NGN.QUIDAX.ystClose_gbpngn)){$('.gbpngnnavticker').addClass("coin-change-green");$('.gbpngnnavticker').removeClass("coin-change-red");}else{$('.gbpngnnavticker').removeClass("coin-change-green"); $('.gbpngnnavticker').addClass("coin-change-red");}
-          if ($.round(data.NGN.QUIDAX.eurngn) >= $.round(data.NGN.QUIDAX.ystClose_eurngn)){$('.eurngnnavticker').addClass("coin-change-green");$('.eurngnnavticker').removeClass("coin-change-red");}else{$('.eurngnnavticker').removeClass("coin-change-green"); $('.eurngnnavticker').addClass("coin-change-red");}
-          if ($.round(data.NGN.QUIDAX.cnyngn) >= $.round(data.NGN.QUIDAX.ystClose_cnyngn)){$('.cnyngnnavticker').addClass("coin-change-green");$('.cnyngnnavticker').removeClass("coin-change-red");}else{$('.cnyngnnavticker').removeClass("coin-change-green"); $('.cnyngnnavticker').addClass("coin-change-red");}          
-   
-            //Exchanges page 24 hour volume      
+            //Exchanges page 24 hour volume
           var quidax24hrVolume = ('₦'+$.round(data.NGN.QUIDAX.total24hrVolume).toLocaleString('en'));   
           var lbc24hrVolume = ('₦'+$.round(data.NGN.LOCALBITCOIN.total24hrVolume).toLocaleString('en'));   
        //   var bitssa24hrVolume = ('₦'+$.round(data.NGN.BITSSA.total24hrVolume).toLocaleString('en'));   
