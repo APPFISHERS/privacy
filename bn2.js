@@ -421,53 +421,7 @@ $(document).on('hidden.bs.modal', '#trade-widget-modal', function () {
     $('#trade-widget-iframe').attr('src', '');
 });
 
-//Cryptocurrency Page Links
-var btcpagelink = document.location.origin+'/2018/10/bitcoin.html';
-var ethpagelink = document.location.origin+'/2018/10/ethereum.html';
-var xrppagelink = document.location.origin+'/2018/10/ripple.html';
-var bchpagelink = document.location.origin+'/2018/10/bitcoin-cash.html';
-var eospagelink = document.location.origin+'/2018/10/eos.html';
-var xlmpagelink = document.location.origin+'/2018/10/stellar.html';
-var ltcpagelink = document.location.origin+'/2018/10/litecoin.html';
-var usdtpagelink = document.location.origin+'/2018/10/tether.html';
-var adapagelink = document.location.origin+'/2018/10/cardano.html';
-var xmrpagelink = document.location.origin+'/2018/10/monero.html';
-var trxpagelink = document.location.origin+'/2018/10/tron.html';
-var iotapagelink = document.location.origin+'/2018/10/iota.html';
-var dashpagelink = document.location.origin+'/2018/10/dashcoin.html';
-var bnbpagelink = document.location.origin+'/2018/10/quidax-coin.html';
-var neopagelink = document.location.origin+'/2018/10/neo.html';
-var etcpagelink = document.location.origin+'/2018/10/ethereum-classic.html';
-var xempagelink = document.location.origin+'/2018/10/nem.html';
-var xtzpagelink = document.location.origin+'/2018/10/tezos.html';
-var vetpagelink = document.location.origin+'/2018/10/vechain.html';
-var zecpagelink = document.location.origin+'/2018/10/zcash.html';
-var dogepagelink = document.location.origin+'/2018/10/dogecoin.html';
-var wavespagelink = document.location.origin+'/2017/01/waves.html';
 
-
-$('.btcpagelink').attr('href',btcpagelink); 
-$('.ethpagelink').attr('href',ethpagelink); 
-$('.xrppagelink').attr('href',xrppagelink); 
-$('.bchpagelink').attr('href',bchpagelink); 
-$('.eospagelink').attr('href',eospagelink); 
-$('.xlmpagelink').attr('href',xlmpagelink); 
-$('.ltcpagelink').attr('href',ltcpagelink); 
-$('.usdtpagelink').attr('href',usdtpagelink); 
-$('.adapagelink').attr('href',adapagelink); 
-$('.xmrpagelink').attr('href',xmrpagelink); 
-$('.trxpagelink').attr('href',trxpagelink); 
-$('.iotapagelink').attr('href',iotapagelink); 
-$('.dashpagelink').attr('href',dashpagelink); 
-$('.bnbpagelink').attr('href',bnbpagelink); 
-$('.neopagelink').attr('href',neopagelink); 
-$('.etcpagelink').attr('href',etcpagelink); 
-$('.xempagelink').attr('href',xempagelink); 
-$('.xtzpagelink').attr('href',xtzpagelink); 
-$('.vetpagelink').attr('href',vetpagelink); 
-$('.zecpagelink').attr('href',zecpagelink); 
-$('.dogepagelink').attr('href',dogepagelink); 
-$('.wavespagelink').attr('href',wavespagelink); 
 
 //Exchanges Logo Links
 var bitkoinafricalogolink = 'https://2.bp.blogspot.com/-FpMsOQmfc6w/W8zMBp6ddlI/AAAAAAAABOA/Yin1xX4pr2MBaRdNbwmcK-yRv7MzfxEaQCLcBGAs/s320/bitkoinAfrica.png';
