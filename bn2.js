@@ -113,17 +113,26 @@ function populateRatesMenu(data) {
   if (crypto.ETH) { $('#ethngnField').val(ngnDisplay(crypto.ETH)); }
   var $menu = $('#rates-menu');
   if (!$menu.length) return;
-  var items = [];
+  var coins = [];
   Object.keys(crypto).forEach(function (key) {
     var c = crypto[key];
     if (!c || typeof c !== 'object' || !c.symbol) return;
     var sym = String(c.symbol).toUpperCase();
     if (sym === 'BTC' || sym === 'ETH') return;
-    items.push(
-      "<li class='dropdown-item'><span style='float:left;color:#fff;'>"
-      + "<span>1</span>" + bnEscapeHtml(sym) + " : &#8358;" + bnEscapeHtml(ngnDisplay(c))
-      + "</span></li>"
-    );
+    coins.push(c);
+  });
+  coins.sort(function (a, b) {
+    var ra = parseFloat(a.rank);
+    var rb = parseFloat(b.rank);
+    if (!isFinite(ra)) ra = Infinity;
+    if (!isFinite(rb)) rb = Infinity;
+    return ra - rb;
+  });
+  var items = coins.map(function (c) {
+    var sym = String(c.symbol).toUpperCase();
+    return "<li class='dropdown-item'><span style='float:left;color:#fff;'>"
+      + bnEscapeHtml(sym) + " : &#8358;" + bnEscapeHtml(ngnDisplay(c))
+      + "</span></li>";
   });
   $menu.html(items.join(''));
 }
