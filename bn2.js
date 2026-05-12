@@ -20,9 +20,17 @@ function populateCryptocoinsTable(data) {
   }
   var $tbody = $table.find('tbody');
   var rows = [];
-  Object.keys(crypto).forEach(function (key) {
-    var c = crypto[key];
-    if (!c || typeof c !== 'object' || !c.symbol) return;
+  var coins = Object.keys(crypto)
+    .map(function (k) { return crypto[k]; })
+    .filter(function (c) { return c && typeof c === 'object' && c.symbol; });
+  coins.sort(function (a, b) {
+    var ra = parseFloat(a.rank);
+    var rb = parseFloat(b.rank);
+    if (!isFinite(ra)) ra = Infinity;
+    if (!isFinite(rb)) rb = Infinity;
+    return ra - rb;
+  });
+  coins.forEach(function (c) {
     var symbol = String(c.symbol).toUpperCase();
     var symLow = symbol.toLowerCase();
     var name = c.name || symbol;
@@ -114,10 +122,11 @@ function populateCryptocoinsTable(data) {
       autoWidth: false,
       scrollCollapse: false,
       searching: true,
-      order: [[10, 'desc']],
+      order: [[0, 'asc']],
       ordering: true,
       columnDefs: [
         { orderable: false, targets: 'no-sort' },
+        { targets: [0, 5, 10], type: 'num' },
         { targets: [3, 6, 7, 8], type: 'formatted-num' }
       ]
     });
