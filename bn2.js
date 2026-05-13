@@ -58,7 +58,7 @@ function populateCryptocoinsTable(data) {
     var mineOrder = mineableYes ? 'Mineable' : 'Not-Mineable';
     var tradeable = String(c.tradeable).toLowerCase() === 'yes';
     var pageHref = document.location.origin + '/p/coin.html?symbol=' + encodeURIComponent(symbol);
-    var logoImg = c.logo
+    var logoImg = (c.logo && c.logo !== 'null')
       ? "<img class='coin-logo' src='" + bnEscapeHtml(c.logo) + "' style='width:24px;height:24px;margin-right:6px;vertical-align:middle;'/>"
       : '';
     var tradeCell = tradeable
@@ -206,7 +206,7 @@ function populateCoinPage(data) {
   $('.coinBuy, .coinSell').attr('symbol', sym);
   $('.coinBuy').attr('title', 'Click on the link to Buy ' + sym);
   $('.coinSell').attr('title', 'Click on the link to Sell ' + sym);
-  if (c.logo) { $('.coinLogo').attr('src', c.logo); }
+  if (c.logo && c.logo !== 'null') { $('.coinLogo').attr('src', c.logo); }
   $('.coinPriceNGN').html(bnFormatFiat(c.ngn, '₦'));
   $('.coinPriceUSD').html(bnFormatFiat(c.usd, '$'));
   $('.coinPriceGBP').html(bnFormatFiat(c.gbp, '£'));
