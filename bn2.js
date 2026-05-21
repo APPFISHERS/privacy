@@ -11,6 +11,89 @@ function bnFormatFiat(value, prefix) {
   return prefix + v.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 });
 }
 
+// Source-aware pricing helpers (mirror the converter in blogger-template.xml /
+// widget-converter.xml). Read window.bnConverterSource so the homepage table,
+// rates dropdown, marquee spans, navbar fiat rates, and coin page all reflect
+// the converter's selected source.
+function bnNormalizeSourceName(s) {
+  s = (s || '').toString().trim();
+  if (s === 'MANUALRATES') return 'MANUALRATE';
+  if (s === 'BINANCEP2PUSDT') return 'USDTMARKET';
+  return s;
+}
+
+function bnGetCurrentSource() {
+  return bnNormalizeSourceName(window.bnConverterSource || 'GLOBAL');
+}
+
+function bnGetExchangeCandidates(rates, fiatCode) {
+  var fb = rates && rates.FIAT && rates.FIAT[fiatCode];
+  var ex = (fb && fb.exchanges) || {};
+  var cand = [].concat(Array.isArray(ex.candidates) ? ex.candidates : []);
+  Object.keys(ex).forEach(function (k) {
+    var v = ex[k];
+    if (v && typeof v === 'object' && isFinite(parseFloat(v.rate))) cand.push(v);
+  });
+  var seen = {};
+  var out = [];
+  cand.forEach(function (e) {
+    var src = bnNormalizeSourceName(e && e.source);
+    var rate = parseFloat(e && e.rate);
+    if (!src || !isFinite(rate)) return;
+    var k = src.toLowerCase();
+    if (seen[k]) return;
+    seen[k] = true;
+    out.push({ source: src, key: k, rate: rate });
+  });
+  return out;
+}
+
+function bnGetSelectedUsdtFiatRate(rates, fiatCode, source) {
+  var fb = rates && rates.FIAT && rates.FIAT[fiatCode];
+  if (!fb) return null;
+  var src = bnNormalizeSourceName(source);
+  if (src === 'MANUALRATE') {
+    var mn = parseFloat(typeof jQuery !== 'undefined' ? jQuery('#manualRate').val() : null);
+    return isFinite(mn) ? mn : null;
+  }
+  if (src === 'GLOBAL') {
+    var g = parseFloat(fb.p2p && fb.p2p.Real && fb.p2p.Real.usd);
+    if (isFinite(g)) return g;
+    if (fiatCode === 'USD') return 1;
+    return null;
+  }
+  if (src.toLowerCase() === 'bank') {
+    var usdBank = rates && rates.FIAT && rates.FIAT.USD && rates.FIAT.USD.Bank;
+    var cross = parseFloat(usdBank && usdBank[fiatCode.toLowerCase()]);
+    if (isFinite(cross) && cross !== 0) return 1 / cross;
+    if (fiatCode === 'USD') return 1;
+  }
+  var cands = bnGetExchangeCandidates(rates, fiatCode);
+  for (var i = 0; i < cands.length; i++) {
+    if (cands[i].key === src.toLowerCase()) return cands[i].rate;
+  }
+  if (src === 'USDTMARKET' && fiatCode === 'USD') return 1;
+  return null;
+}
+
+function bnGetCryptoFiatPrice(rates, symbol, fiatCode, source) {
+  var coin = rates && rates.CRYPTO && rates.CRYPTO[symbol];
+  if (!coin) return null;
+  var usdtMarketPair = parseFloat(rates && rates.USDTMARKET && rates.USDTMARKET['usdt' + symbol.toLowerCase()]);
+  var usdtPair = parseFloat(coin.usdt);
+  var usdDirect = parseFloat(coin.usd);
+  var quoteBase = symbol === 'USDT' ? 1
+    : (isFinite(usdtMarketPair) ? usdtMarketPair
+       : (isFinite(usdtPair) ? usdtPair : usdDirect));
+  if (fiatCode === 'USD' && isFinite(quoteBase)) return quoteBase;
+  var fx = bnGetSelectedUsdtFiatRate(rates, fiatCode, source);
+  if (isFinite(quoteBase) && isFinite(fx)) return quoteBase * fx;
+  if (fiatCode === 'USD' && isFinite(usdDirect)) return usdDirect;
+  var direct = parseFloat(coin[fiatCode.toLowerCase()]);
+  if (isFinite(direct)) return direct;
+  return null;
+}
+
 function populateCryptocoinsTable(data) {
   var crypto = (data && data.CRYPTO) || {};
   var $table = $('#marketTable');
@@ -20,6 +103,7 @@ function populateCryptocoinsTable(data) {
   }
   var $tbody = $table.find('tbody');
   var rows = [];
+  var source = bnGetCurrentSource();
   var coins = Object.keys(crypto)
     .map(function (k) { return crypto[k]; })
     .filter(function (c) { return c && typeof c === 'object' && c.symbol; });
@@ -35,15 +119,16 @@ function populateCryptocoinsTable(data) {
     var symLow = symbol.toLowerCase();
     var name = c.name || symbol;
     var rank = (c.rank != null) ? c.rank : '';
-    var ngnVal = parseFloat(c.ngn);
-    var usdVal = parseFloat(c.usd);
-    var gbpVal = parseFloat(c.gbp);
-    var eurVal = parseFloat(c.eur);
-    var capVal = parseFloat(c.cap_ngn);
-    var ngn = bnFormatFiat(c.ngn, '₦');
-    var usd = bnFormatFiat(c.usd, '$');
-    var gbp = bnFormatFiat(c.gbp, '£');
-    var eur = bnFormatFiat(c.eur, '€');
+    var ngnVal = bnGetCryptoFiatPrice(data, symbol, 'NGN', source);
+    var usdVal = bnGetCryptoFiatPrice(data, symbol, 'USD', source);
+    var gbpVal = bnGetCryptoFiatPrice(data, symbol, 'GBP', source);
+    var eurVal = bnGetCryptoFiatPrice(data, symbol, 'EUR', source);
+    var supplyN = parseFloat(c.supply);
+    var capVal = (isFinite(supplyN) && isFinite(ngnVal)) ? supplyN * ngnVal : parseFloat(c.cap_ngn);
+    var ngn = bnFormatFiat(ngnVal, '₦');
+    var usd = bnFormatFiat(usdVal, '$');
+    var gbp = bnFormatFiat(gbpVal, '£');
+    var eur = bnFormatFiat(eurVal, '€');
     var changeRaw = (c.ngnChange != null) ? c.ngnChange : '0.00';
     var changeNum = parseFloat(changeRaw);
     var change = (isFinite(changeNum) ? changeRaw : '0.00') + '%';
@@ -144,8 +229,11 @@ function populateCryptocoinsTable(data) {
 
 function populateRatesMenu(data) {
   var crypto = (data && data.CRYPTO) || {};
+  var source = bnGetCurrentSource();
   function ngnDisplay(c) {
-    var v = parseFloat(c && c.ngn);
+    var sym = String(c && c.symbol || '').toUpperCase();
+    var v = bnGetCryptoFiatPrice(data, sym, 'NGN', source);
+    if (!isFinite(v) || v <= 0) v = parseFloat(c && c.ngn);
     return (isFinite(v) && v > 0) ? Math.round(v).toLocaleString('en') : '...';
   }
   if (crypto.BTC) { $('#btcngnField').val(ngnDisplay(crypto.BTC)); }
@@ -207,12 +295,21 @@ function populateCoinPage(data) {
   $('.coinBuy').attr('title', 'Click on the link to Buy ' + sym);
   $('.coinSell').attr('title', 'Click on the link to Sell ' + sym);
   if (c.logo && c.logo !== 'null') { $('.coinLogo').attr('src', c.logo); }
-  $('.coinPriceNGN').html(bnFormatFiat(c.ngn, '₦'));
-  $('.coinPriceUSD').html(bnFormatFiat(c.usd, '$'));
-  $('.coinPriceGBP').html(bnFormatFiat(c.gbp, '£'));
-  $('.coinPriceEUR').html(bnFormatFiat(c.eur, '€'));
-  $('.coinPriceCNY').html(bnFormatFiat(c.cny, '¥'));
-  var capVal = parseFloat(c.cap_ngn);
+  var source = bnGetCurrentSource();
+  var priceNgn = bnGetCryptoFiatPrice(data, sym, 'NGN', source);
+  var priceUsd = bnGetCryptoFiatPrice(data, sym, 'USD', source);
+  var priceGbp = bnGetCryptoFiatPrice(data, sym, 'GBP', source);
+  var priceEur = bnGetCryptoFiatPrice(data, sym, 'EUR', source);
+  var priceCny = bnGetCryptoFiatPrice(data, sym, 'CNY', source);
+  $('.coinPriceNGN').html(bnFormatFiat(priceNgn, '₦'));
+  $('.coinPriceUSD').html(bnFormatFiat(priceUsd, '$'));
+  $('.coinPriceGBP').html(bnFormatFiat(priceGbp, '£'));
+  $('.coinPriceEUR').html(bnFormatFiat(priceEur, '€'));
+  $('.coinPriceCNY').html(bnFormatFiat(priceCny, '¥'));
+  var supplyForCap = parseFloat(c.supply);
+  var capVal = (isFinite(supplyForCap) && isFinite(priceNgn))
+    ? supplyForCap * priceNgn
+    : parseFloat(c.cap_ngn);
   $('.marketcapcoin').html((isFinite(capVal) && capVal > 0)
     ? ('₦' + marketcapFormatter(capVal, 2))
     : '...');
@@ -236,7 +333,7 @@ function populateCoinPage(data) {
     $('.coinWebsiteLink').attr('href', explorerLink);
     $('.coinWalletLink').attr('href', explorerLink);
   }
-  document.title = name + ' (' + sym + ') ' + bnFormatFiat(c.ngn, '₦') + ' - BTCNaira';
+  document.title = name + ' (' + sym + ') ' + bnFormatFiat(priceNgn, '₦') + ' - BTCNaira';
 
   // Load the Blogger label feed for this coin once per page load.
   // Label = coin name lowercased with spaces -> dashes (e.g. "Bitcoin Cash" -> "bitcoin-cash").
@@ -279,7 +376,7 @@ function quidaxRates() {
 $.round = Math.round;
 var baseurl = 'https://api.btcnaira.com.ng/v1/rates/';
 // x-api-key (base64-encoded). To rotate: paste btoa('YOUR_KEY') output below.
-var _bnApiKey = atob('MWExY2Q1NDkzMGMwYjI2OGY3MmQxNGE2MjAxMjAzNmNkNzVjMmI3YTg4MWEwYmY0YzhlYTVlZmJlOTIzZTNkOA==');
+var _bnApiKey = atob('UkVQTEFDRV9NRQ==');
 $.ajax({ url: baseurl, headers: { 'x-api-key': _bnApiKey } })
     .then(function (data) {
           //Auto-populate cryptocoins table and rates dropdown from data.CRYPTO
@@ -289,6 +386,19 @@ $.ajax({ url: baseurl, headers: { 'x-api-key': _bnApiKey } })
           populateRatesMenu(data);
           populateNavbarFiat(data);
           populateCoinPage(data);
+          // Track wiring once: when the converter changes source, re-render the
+          // homepage table, dropdown, navbar, and coin page against the latest
+          // payload so every NGN figure matches the converter's selected source.
+          if (!window.bnSourceChangeWired) {
+            window.bnSourceChangeWired = true;
+            jQuery(document).on('bn:source-changed', function () {
+              if (!window.bnRates) return;
+              populateCryptocoinsTable(window.bnRates);
+              populateRatesMenu(window.bnRates);
+              populateNavbarFiat(window.bnRates);
+              populateCoinPage(window.bnRates);
+            });
+          }
           //update market cap (Always checks if data is 0 before parsing)
       function formatWithCommas(n) {
     return parseFloat(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
