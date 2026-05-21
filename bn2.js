@@ -425,7 +425,7 @@ function quidaxRates() {
 $.round = Math.round;
 var baseurl = 'https://api.btcnaira.com.ng/v1/rates/';
 // x-api-key (base64-encoded). To rotate: paste btoa('YOUR_KEY') output below.
-var _bnApiKey = atob('UkVQTEFDRV9NRQ==');
+var _bnApiKey = atob('MWExY2Q1NDkzMGMwYjI2OGY3MmQxNGE2MjAxMjAzNmNkNzVjMmI3YTg4MWEwYmY0YzhlYTVlZmJlOTIzZTNkOA==');
 $.ajax({ url: baseurl, headers: { 'x-api-key': _bnApiKey } })
     .then(function (data) {
           //Auto-populate cryptocoins table and rates dropdown from data.CRYPTO
