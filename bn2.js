@@ -48,36 +48,16 @@ function bnGetExchangeCandidates(rates, fiatCode) {
   return out;
 }
 
+// The manual rate is fixed to USDT/NGN (BTCNaira's home currency). It only
+// adjusts NGN-denominated conversions; every other fiat keeps its global p2p
+// rate so the manual NGN value flows through to e.g. EUR/NGN ratios via the
+// other side's p2p rate, but doesn't distort USD/EUR or BTC/EUR.
+var BN_MANUAL_ANCHOR_FIAT = 'NGN';
+
 function bnGlobalFiatRate(fb, fiatCode) {
   var g = parseFloat(fb && fb.p2p && fb.p2p.Real && fb.p2p.Real.usd);
   if (isFinite(g)) return g;
   if (fiatCode === 'USD') return 1;
-  return null;
-}
-
-// Find the anchor fiat for a source: the one fiat whose USDT/<fiat> rate is
-// known from the source. For exchange sources we pick the first fiat where
-// the source appears as a candidate (e.g. Luno/Quidax -> NGN). For MANUALRATE
-// the anchor is the fiat the user typed for (window.bnManualRateFiat).
-function bnGetSourceAnchor(rates, src) {
-  if (src === 'MANUALRATE') {
-    var anchorFiat = String(window.bnManualRateFiat || '').toUpperCase();
-    if (!anchorFiat || anchorFiat.indexOf('->') >= 0) return null;
-    var mn = parseFloat(typeof jQuery !== 'undefined' ? jQuery('#manualRate').val() : null);
-    if (!isFinite(mn)) return null;
-    return { fiat: anchorFiat, rate: mn };
-  }
-  var srcKey = src.toLowerCase();
-  var fiats = (rates && rates.FIAT) ? Object.keys(rates.FIAT) : [];
-  for (var i = 0; i < fiats.length; i++) {
-    var fc = fiats[i];
-    var cands = bnGetExchangeCandidates(rates, fc);
-    for (var j = 0; j < cands.length; j++) {
-      if (cands[j].key === srcKey && isFinite(cands[j].rate)) {
-        return { fiat: fc, rate: cands[j].rate };
-      }
-    }
-  }
   return null;
 }
 
@@ -88,6 +68,14 @@ function bnGetSelectedUsdtFiatRate(rates, fiatCode, source) {
 
   if (src === 'GLOBAL') return bnGlobalFiatRate(fb, fiatCode);
 
+  if (src === 'MANUALRATE') {
+    if (fiatCode === BN_MANUAL_ANCHOR_FIAT) {
+      var mn = parseFloat(typeof jQuery !== 'undefined' ? jQuery('#manualRate').val() : null);
+      if (isFinite(mn) && mn > 0) return mn;
+    }
+    return bnGlobalFiatRate(fb, fiatCode);
+  }
+
   if (src.toLowerCase() === 'bank') {
     var usdBank = rates && rates.FIAT && rates.FIAT.USD && rates.FIAT.USD.Bank;
     var cross = parseFloat(usdBank && usdBank[fiatCode.toLowerCase()]);
@@ -96,30 +84,13 @@ function bnGetSelectedUsdtFiatRate(rates, fiatCode, source) {
     return bnGlobalFiatRate(fb, fiatCode);
   }
 
-  // Direct candidate lookup (skip for MANUALRATE — user input takes priority
-  // over any server-side MANUALRATES preset).
-  if (src !== 'MANUALRATE') {
-    var direct = bnGetExchangeCandidates(rates, fiatCode);
-    for (var i = 0; i < direct.length; i++) {
-      if (direct[i].key === src.toLowerCase()) return direct[i].rate;
-    }
-    if (src === 'USDTMARKET' && fiatCode === 'USD') return 1;
+  // Exchange source: use the source's direct candidate when it has one,
+  // otherwise fall back to the GLOBAL p2p rate for that fiat.
+  var cands = bnGetExchangeCandidates(rates, fiatCode);
+  for (var i = 0; i < cands.length; i++) {
+    if (cands[i].key === src.toLowerCase()) return cands[i].rate;
   }
-
-  // Derive via the source's anchor + GLOBAL cross-rate so that a custom
-  // USDT/<anchor-fiat> (e.g. manual NGN, or Luno's NGN) propagates
-  // proportionally to every other fiat.
-  var anchor = bnGetSourceAnchor(rates, src);
-  if (anchor) {
-    if (fiatCode === anchor.fiat) return anchor.rate;
-    var anchorFb = rates && rates.FIAT && rates.FIAT[anchor.fiat];
-    var globalForFiat = bnGlobalFiatRate(fb, fiatCode);
-    var globalForAnchor = bnGlobalFiatRate(anchorFb, anchor.fiat);
-    if (isFinite(globalForFiat) && isFinite(globalForAnchor) && globalForAnchor !== 0) {
-      return anchor.rate * (globalForFiat / globalForAnchor);
-    }
-  }
-
+  if (src === 'USDTMARKET' && fiatCode === 'USD') return 1;
   return bnGlobalFiatRate(fb, fiatCode);
 }
 
