@@ -523,7 +523,7 @@ $.ajax({ url: baseurl, headers: { 'x-api-key': _bnApiKey } })
 }
 
 //Use Quidax Rates Data on default
-setInterval(quidaxRates, 60000)
+setInterval(quidaxRates, 180000)
 quidaxRates();
 
 
